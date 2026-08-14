@@ -1,0 +1,34 @@
+---
+import Hamburger from './Hamburger.astro';
+import ThemeChange from './ThemeChange.astro';
+---
+
+<header class="max-w-4xl w-dvw mx-auto p-4 flex flex-col md:flex-row md:items-center gap-2">
+  <div class="flex flex-row justify-between items-center md:contents">
+    <a href="/" class="block text-2xl font-bold md:order-1 md:mr-auto">しろみつ's Site</a>
+    <div class="flex flex-row items-center gap-2 md:order-3">
+      <ThemeChange />
+      <Hamburger />
+    </div>
+  </div>
+  <nav class="md:order-2 overflow-hidden max-md:max-h-0 max-md:open:max-h-96 transition-[max-height] duration-300">
+    <ul class="max-md:p-4 flex flex-row gap-4 max-md:border-y max-md:border-gray-500">
+      <li><a href="/archive/">Archive</a></li>
+      <li><a href="/category/">Category</a></li>
+      <li><a href="/tags/">Tags</a></li>
+    </ul>
+  </nav>
+  <script is:inline>
+    document.addEventListener('astro:page-load', () => {
+      const hamburger = document.querySelector('.hamburger');
+      const navMenu = document.querySelector('nav');
+      const lines = hamburger.querySelectorAll('span');
+      hamburger.addEventListener('click', () => {
+        navMenu.getAttribute('open') === null ? navMenu.setAttribute('open', '') : navMenu.removeAttribute('open');
+        lines.forEach((line) => {
+          line.getAttribute('open') === null ? line.setAttribute('open', '') : line.removeAttribute('open');
+        });
+      });
+    });
+  </script>
+</header>

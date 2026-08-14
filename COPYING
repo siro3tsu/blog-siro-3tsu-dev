@@ -1,0 +1,27 @@
+Copyright Notice
+
+(C) 2026 Shiromitsu
+
+Unless otherwise stated, all source code in this repository is
+licensed under the GNU Affero General Public License v3.0 only.
+
+The following works are excluded from the above license and remain
+all Rights Reserved:
+
+- Personal profile content and other original written content
+- Personal photographs and illustrations
+- Logos, icons, and other branding materials
+- Files under:
+  - `src/images/`
+  - `public/`
+  - `resources/`
+  - `src/blog/`
+- Other non-code assets explicitly marked as "All Rights Reserved"
+
+These works may not be reproduced, modified, distributed, used to train
+generative AI models, including base models and additional training
+models such as LoRA, or provided as input to or referenced by generative
+AI systems, without permission from the respective copyright holder.
+
+Third-party components and assets are subject to their respective
+licenses.
