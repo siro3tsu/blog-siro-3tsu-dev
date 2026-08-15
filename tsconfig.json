@@ -11,6 +11,12 @@
 "compilerOptions": {
     "types": [
         "./worker-configuration.d.ts"
-    ]
+    ],
+    "paths": {
+      "@layouts/*": ["./src/layouts/*"],
+      "@components/*": ["./src/components/*"],
+      "@site.config": ["./src/site.config.ts"],
+      "@utils": ["./src/utils.ts"],
+    },
 }
 }
