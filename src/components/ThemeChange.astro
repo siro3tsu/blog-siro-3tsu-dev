@@ -6,7 +6,7 @@
   <div class="relative hover:[&>div]:opacity-100">
     <button
       popovertarget="theme-popover"
-      class="[anchor-name:--theme-popover] p-1 md:align-[-10px]"
+      class="[anchor-name:--theme-popover] p-1 sm:align-middle"
       aria-label="テーマ変更"
     >
       <div class="text-2xl w-6 h-6">
@@ -17,7 +17,7 @@
       </div>
     </button>
     <div
-      class="absolute opacity-0 transition-opacity top-10 -right-8 md:max-[940px]:-right-2 w-24 text-center bg-purple-50/70 dark:bg-gray-900/70 backdrop-blur-lg text-gray-900 dark:text-gray-100 border border-gray-500 rounded-md shadow-lg p-1 z-10 pointer-events-none"
+      class="absolute opacity-0 transition-opacity top-10 -right-8 sm:max-[940px]:-right-2 w-24 text-center bg-default-bg/70 dark:bg-default-bg-dark/70 backdrop-blur-lg text-gray-900 dark:text-gray-100 border border-gray-500 rounded-md shadow-lg p-1 z-10 pointer-events-none"
     >
       テーマ変更
     </div>
@@ -25,7 +25,7 @@
   <div
     id="theme-popover"
     popover
-    class="[position-anchor:--theme-popover] [position-area:bottom] mt-1 mr-2 bg-purple-50/70 dark:bg-gray-900/70 backdrop-blur-lg text-gray-900 dark:text-gray-100 border border-gray-500 rounded-md shadow-lg p-1 z-20"
+    class="[position-anchor:--theme-popover] [position-area:bottom] mt-1 mr-2 bg-default-bg/70 dark:bg-default-bg-dark/70 backdrop-blur-lg text-gray-900 dark:text-gray-100 border border-gray-500 rounded-md shadow-lg p-1 z-20"
   >
     <ul class="flex flex-col gap-2">
       <li>
@@ -87,9 +87,9 @@
   });
 </script>
 <style>
-  @reference 'tailwindcss';
+  @reference '../styles/global.css';
   @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
   .theme-change-btn {
-    @apply w-full rounded-md px-1 py-2 text-left aria-current:bg-purple-300/70 dark:aria-current:bg-indigo-700/70 hover:bg-purple-200/70 dark:hover:bg-indigo-800/70 hover:aria-current:bg-purple-300/50 dark:hover:aria-current:bg-indigo-700/90 flex flex-row items-center gap-1 cursor-pointer;
+    @apply w-full rounded-md px-1 py-2 text-left aria-current:bg-primary-300/70 dark:aria-current:bg-primary-700/70 hover:bg-primary-200/70 dark:hover:bg-primary-800/70 hover:aria-current:bg-primary-300/50 dark:hover:aria-current:bg-primary-700/90 flex flex-row items-center gap-1 cursor-pointer;
   }
 </style>

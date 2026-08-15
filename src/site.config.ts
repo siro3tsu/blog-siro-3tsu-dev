@@ -16,6 +16,24 @@ export const siteConfig: {
   postsPerPage: 1,
 };
 
+export const headerItems: {
+  label: string;
+  href: string;
+}[] = [
+  {
+    label: 'Archive',
+    href: '/archive/',
+  },
+  {
+    label: 'Category',
+    href: '/category/',
+  },
+  {
+    label: 'Tags',
+    href: '/tags/',
+  },
+];
+
 export const authorConfig: {
   id: string;
   name: string;

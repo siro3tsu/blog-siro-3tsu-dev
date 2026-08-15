@@ -4,8 +4,30 @@
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
+@theme {
+  --color-default-text: var(--color-gray-900);
+  --color-default-text-dark: var(--color-gray-100);
+  --color-default-bg: var(--color-white);
+  --color-default-bg-dark: var(--color-slate-950);
+  --color-primary-950: var(--color-indigo-950);
+  --color-primary-900: var(--color-indigo-900);
+  --color-primary-800: var(--color-indigo-800);
+  --color-primary-700: var(--color-indigo-700);
+  --color-primary-600: var(--color-indigo-600);
+  --color-primary-500: var(--color-purple-500);
+  --color-primary-400: var(--color-purple-400);
+  --color-primary-300: var(--color-purple-300);
+  --color-primary-200: var(--color-purple-200);
+  --color-primary-100: var(--color-purple-100);
+  --color-primary-50: var(--color-purple-50);
+}
+
 body {
-  @apply bg-purple-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 font-sans selection:bg-purple-300/70 dark:selection:bg-indigo-700/70;
+  @apply bg-default-bg dark:bg-default-bg-dark text-default-text dark:text-default-text-dark font-sans transition-colors duration-300;
+}
+
+.link-box {
+  @apply bg-purple-200 dark:bg-primary-900 px-2 py-1 rounded hover:bg-purple-300 dark:hover:bg-indigo-700 transition-colors duration-300;
 }
 
 @utility prose-black {
