@@ -1,0 +1,23 @@
+---
+import { getSortedPosts, convertToSlug } from '@utils';
+import Layout from '@layouts/Layout.astro';
+
+const sortedPosts = await getSortedPosts();
+// すべての投稿の中からすべてのカテゴリを取得する。
+const uniqueCategory = [...new Set(sortedPosts.flatMap((post) => post.data.category))];
+---
+
+<Layout title="カテゴリ" description="カテゴリの一覧です。">
+  <ul class="flex flex-row flex-wrap gap-2">
+    {
+      uniqueCategory.map((category) => (
+        <li>
+          <a href={`/category/${convertToSlug(category)}/`} class="inline-flex items-center gap-1 link-box">
+            <span class="icon-[ic--outline-category] text-lg" />
+            {category}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>

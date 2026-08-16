@@ -1,0 +1,23 @@
+---
+import { getSortedPosts, convertToSlug } from '@utils';
+import Layout from '@layouts/Layout.astro';
+
+const sortedPosts = await getSortedPosts();
+// すべての投稿の中からすべてのタグを取得する。
+const uniqueTags = [...new Set(sortedPosts.flatMap((post) => post.data.tags))];
+---
+
+<Layout title="タグ" description="タグの一覧です。">
+  <ul class="flex flex-row flex-wrap gap-2">
+    {
+      uniqueTags.map((tag) => (
+        <li>
+          <a href={`/tags/${convertToSlug(tag)}/`} class="inline-flex items-center gap-1 link-box">
+            <span class="icon-[ic--outline-tag] text-lg" />
+            {tag}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>

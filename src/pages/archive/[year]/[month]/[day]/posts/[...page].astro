@@ -1,0 +1,66 @@
+---
+import type { GetStaticPathsOptions } from 'astro';
+import { getSortedPosts } from '@utils';
+import { siteConfig } from '@site.config';
+import PaginationLayout from '@layouts/PaginationLayout.astro';
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const sortedPosts = await getSortedPosts();
+  // すべての投稿の中からすべての年（2023,2024など）を取得する。
+  const uniqueYears = [...new Set(sortedPosts.flatMap((post) => post.data.publishedDate.getFullYear()))];
+
+  // すべての年ごとに処理を行う。
+  // ここでflatMapではなくflatを使うとエラーになるので注意（以下すべて同じ）
+  return uniqueYears.flatMap((year) => {
+    // その年の投稿を取得
+    const yearFilteredPosts = sortedPosts.filter((post) => post.data.publishedDate.getFullYear() === year);
+    // その年の投稿の中からすべての月(4,9など)を取得する。
+    const uniqueMonths = [
+      ...new Set(
+        // getMonthは現実の数字から-1したものを返すので+1しておく。
+        // そうじゃないとディレクトリ的にも-1した数字でアクセスすることになる。
+        yearFilteredPosts.flatMap((post) => post.data.publishedDate.getMonth() + 1),
+      ),
+    ];
+    // すべての月ごとに処理を行う。
+    return uniqueMonths.flatMap((month) => {
+      // その月の投稿を取得
+      const monthFilteredPosts = yearFilteredPosts.filter((post) => post.data.publishedDate.getMonth() + 1 === month);
+      // その月の中からすべての日を取得する。
+      const uniqueDays = [...new Set(monthFilteredPosts.flatMap((post) => post.data.publishedDate.getDate()))];
+      // すべての日ごとに処理を行う。
+      return uniqueDays.flatMap((day) => {
+        // その日の投稿を取得
+        const filteredPosts = monthFilteredPosts.filter((post) => post.data.publishedDate.getDate() === day);
+        /* paginateの第一引数には日付でフィルタ処理した投稿のリスト
+        第二引数にはオブジェクトを渡す。
+        params: ここでページルート情報をテンプレートに渡す。
+        pageSize: １ページ当たりの投稿数
+        */
+        return paginate(filteredPosts, {
+          params: {
+            year: year.toString(),
+            month: month.toString().padStart(2, '0'),
+            day: day.toString().padStart(2, '0'),
+          },
+          pageSize: siteConfig.postsPerPage,
+        });
+      });
+    });
+  });
+}
+
+const { page } = Astro.props;
+const { year, month, day } = Astro.params;
+---
+
+<PaginationLayout
+  page={page}
+  title={`${year}年${month}月${day}日の投稿`}
+  basePath={`/archive/${year}/${month}/${day}/posts`}
+  description={`${year}年${month}月${day}日の投稿の一覧です。`}
+>
+  <a href={`/archive/${year}/${month}/`} class="link-box">
+    &lt;&nbsp;{year}年{month}月の投稿日一覧
+  </a>
+</PaginationLayout>

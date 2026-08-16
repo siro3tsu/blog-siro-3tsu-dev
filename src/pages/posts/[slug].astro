@@ -1,0 +1,101 @@
+---
+type Props = {
+  post: CollectionEntry<'blog'>;
+};
+type HeadingListItem = {
+  slug: string;
+  text: string;
+  children?: HeadingListItem[];
+};
+
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+import Layout from '@layouts/Layout.astro';
+import CopyScript from '@components/CopyScript.astro';
+import PostMeta from '@components/PostMeta.astro';
+import { getAltDescription } from '@utils';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+
+const frontmatter = post.data;
+const publishedDate = {
+  year: frontmatter.publishedDate.getFullYear().toString(),
+  month: (frontmatter.publishedDate.getMonth() + 1).toString().padStart(2, '0'),
+  day: frontmatter.publishedDate.getDate().toString().padStart(2, '0'),
+};
+const updatedDate =
+  frontmatter.updatedDate !== undefined
+    ? {
+        year: frontmatter.updatedDate.getFullYear().toString(),
+        month: (frontmatter.updatedDate.getMonth() + 1).toString().padStart(2, '0'),
+        day: frontmatter.updatedDate.getDate().toString().padStart(2, '0'),
+      }
+    : publishedDate;
+
+const headingsList: HeadingListItem[] = [];
+const stack: any[] = [];
+headings.forEach((heading) => {
+  const item = {
+    slug: heading.slug,
+    text: heading.text,
+  };
+  stack.length = heading.depth - 2;
+  if (heading.depth === 2) {
+    headingsList.push(item);
+  } else {
+    const parent = stack[stack.length - 1];
+    if (parent) {
+      parent.children ??= [];
+      parent.children.push(item);
+    }
+  }
+  stack.push(item);
+});
+---
+
+<Layout
+  title={frontmatter.title}
+  useDefaultTitle={false}
+  description={frontmatter.description ?? getAltDescription(post.body)}
+>
+  <h1 class="text-3xl font-bold mb-4">{frontmatter.title}</h1>
+  <PostMeta frontmatter={frontmatter} mode="postPage" altDescription={getAltDescription(post.body)} />
+  <article>
+    <Content />
+  </article>
+  <CopyScript />
+</Layout>
+<style>
+  @reference "../../styles/global.css";
+
+  .toc {
+    ol {
+      counter-reset: section;
+    }
+
+    ol > li {
+      counter-increment: section;
+    }
+
+    ol > li::marker {
+      content: counters(section, '.') '. ';
+    }
+  }
+
+  article {
+    @apply mt-2 prose prose-black prose-blue dark:prose-invert max-w-none;
+    @apply prose-code:bg-primary-200 prose-code:dark:bg-primary-900 prose-code:p-1 prose-code:mx-1 prose-code:rounded prose-code:not-data-copy:before:content-none prose-code:after:content-none;
+    @apply prose-code:data-copy:cursor-pointer prose-code:data-copy:before:icon-[ic--outline-content-copy];
+    @apply prose-code:data-copy:before:mr-1 prose-code:data-copy:before:text-lg prose-code:data-copy:before:align-middle prose-code:data-copy:hover:bg-primary-300 prose-code:data-copy:hover:dark:bg-primary-700;
+  }
+</style>

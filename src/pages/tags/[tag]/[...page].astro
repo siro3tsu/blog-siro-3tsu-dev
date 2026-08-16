@@ -1,0 +1,41 @@
+---
+import type { GetStaticPathsOptions } from 'astro';
+import { getSortedPosts, convertToSlug } from '@utils';
+import PaginationLayout from '@layouts/PaginationLayout.astro';
+import { siteConfig } from '@site.config';
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const sortedPosts = await getSortedPosts();
+  // すべての投稿の中からすべてのタグを取得する。
+  const uniqueTags = [...new Set(sortedPosts.flatMap((post) => post.data.tags))];
+  const tagSlugs = uniqueTags.map((tag) => convertToSlug(tag));
+
+  // すべてのタグごとに処理を行う。
+  // ここでflatMapではなくflatを使うとエラーになるので注意（以下すべて同じ）
+  return tagSlugs.flatMap((tag) => {
+    // そのタグの投稿を取得
+    const filteredPosts = sortedPosts.filter((post) => post.data.tags.map(convertToSlug).includes(tag));
+    /* paginateの第一引数にはタグでフィルタ処理した投稿のリスト
+    第二引数にはオブジェクトを渡す。
+    params: ここでページルート情報をテンプレートに渡す。
+    pageSize: １ページ当たりの投稿数
+    */
+    return paginate(filteredPosts, {
+      params: {
+        tag,
+      },
+      props: { tagName: uniqueTags.find((tagName) => convertToSlug(tagName) === tag) },
+      pageSize: siteConfig.postsPerPage,
+    });
+  });
+}
+const { page, tagName } = Astro.props;
+const { tag } = Astro.params;
+---
+
+<PaginationLayout
+  page={page}
+  title={`「${tagName}」タグのついた投稿`}
+  basePath={`/tags/${tag}`}
+  description={`「${tagName}」タグのついた投稿の一覧です。`}
+/>

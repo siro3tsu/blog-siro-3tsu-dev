@@ -1,0 +1,43 @@
+---
+import type { GetStaticPathsOptions } from 'astro';
+import { getSortedPosts } from '@utils';
+import PaginationLayout from '@layouts/PaginationLayout.astro';
+import { siteConfig } from '@site.config';
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  // すべての投稿を日付の新しいほうから古いほうへ並べる
+  const sortedPosts = await getSortedPosts();
+  // すべての投稿の中からすべての年（2023,2024など）を取得する。
+  const uniqueYears = [...new Set(sortedPosts.flatMap((post) => post.data.publishedDate.getFullYear()))];
+
+  // すべての年ごとに処理を行う。
+  // ここでflatMapではなくflatを使うとエラーになるので注意（以下すべて同じ）
+  return uniqueYears.flatMap((year) => {
+    // その年の投稿を取得
+
+    const filteredPosts = sortedPosts.filter((post) => post.data.publishedDate.getFullYear() === year);
+    /* paginateの第一引数には日付でフィルタ処理した投稿のリスト
+        第二引数にはオブジェクトを渡す。
+        params: ここでページルート情報をテンプレートに渡す。
+        pageSize: １ページ当たりの投稿数
+        */
+    return paginate(filteredPosts, {
+      params: {
+        year: year.toString(),
+      },
+      pageSize: siteConfig.postsPerPage,
+    });
+  });
+}
+const { page } = Astro.props;
+const { year } = Astro.params;
+---
+
+<PaginationLayout
+  page={page}
+  title={`${year}年の投稿`}
+  basePath={`/archive/${year}/posts`}
+  description={`${year}年の投稿の一覧です。`}
+>
+  <a href={`/archive/`} class="link-box"> &lt;&nbsp;投稿年一覧 </a>
+</PaginationLayout>

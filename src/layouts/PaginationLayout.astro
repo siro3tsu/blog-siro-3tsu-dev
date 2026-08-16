@@ -1,0 +1,40 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getAltDescription } from '@utils';
+
+type Props = {
+  page: {
+    data: CollectionEntry<'blog'>[];
+    currentPage: number;
+    lastPage: number;
+  };
+  title: string;
+  description?: string;
+  basePath: string;
+  showTitle?: boolean;
+};
+import Layout from '@layouts/Layout.astro';
+import PostCard from '@components/PostCard.astro';
+import Paging from '@components/Paging.astro';
+
+const { page, title, description, basePath, showTitle = true } = Astro.props;
+---
+
+<Layout
+  title={title + ` (${page.currentPage}/${page.lastPage}ページ)`}
+  description={description}
+  useDefaultTitle={false}
+>
+  <div class="pb-2 border-b mb-6">
+    {showTitle && <h1 class="text-3xl font-bold mb-2">{title}</h1>}
+    <slot />
+  </div>
+  <ul class="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2">
+    {
+      page.data.map((post) => (
+        <PostCard slug={`/posts/${post.id}`} frontmatter={post.data} altDescription={getAltDescription(post.body)} />
+      ))
+    }
+  </ul>
+  <Paging currentPage={page.currentPage} totalPages={page.lastPage} basePath={basePath} />
+</Layout>

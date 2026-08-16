@@ -1,0 +1,97 @@
+---
+import type { CollectionEntry } from 'astro:content';
+type Props = {
+  frontmatter: CollectionEntry<'blog'>['data'];
+  altDescription: string;
+  mode?: 'postPage' | 'postCard';
+};
+import { Image } from 'astro:assets';
+import { authorConfig } from '../site.config';
+import { convertToSlug } from '@utils';
+
+const { frontmatter, altDescription, mode } = Astro.props;
+const author = authorConfig.find((item) => item.id === frontmatter.author)!;
+const publishedDate = {
+  year: frontmatter.publishedDate.getFullYear().toString(),
+  month: (frontmatter.publishedDate.getMonth() + 1).toString().padStart(2, '0'),
+  day: frontmatter.publishedDate.getDate().toString().padStart(2, '0'),
+};
+const updatedDate =
+  frontmatter.updatedDate !== undefined
+    ? {
+        year: frontmatter.updatedDate.getFullYear().toString(),
+        month: (frontmatter.updatedDate.getMonth() + 1).toString().padStart(2, '0'),
+        day: frontmatter.updatedDate.getDate().toString().padStart(2, '0'),
+      }
+    : publishedDate;
+---
+
+<div class="flex flex-col gap-2">
+  <div class="flex flex-row gap-2 flex-wrap">
+    <p class="flex items-center gap-1">
+      <span class="icon-[material-symbols--calendar-clock-outline] text-lg"></span>{
+        mode === 'postPage' ? (
+          <span class="flex">
+            <>
+              <a href={`/archive/${publishedDate.year}/posts/`} class="hover:underline">
+                {publishedDate.year}
+              </a>
+              <span>/</span>
+              <a href={`/archive/${publishedDate.year}/${publishedDate.month}/posts/`} class="hover:underline">
+                {publishedDate.month}
+              </a>
+              <span>/</span>
+              <a
+                href={`/archive/${publishedDate.year}/${publishedDate.month}/${publishedDate.day}/posts/`}
+                class="hover:underline"
+              >
+                {publishedDate.day}
+              </a>
+            </>
+          </span>
+        ) : (
+          `${publishedDate.year}/${publishedDate.month}/${publishedDate.day}`
+        )
+      }
+    </p>
+    <p class="flex items-center gap-1">
+      <span class="icon-[material-symbols--edit-calendar-outline] text-lg"></span>
+      {`${updatedDate.year}/${updatedDate.month}/${updatedDate.day}`}
+    </p>
+    <p class="flex items-center gap-1">
+      <Image
+        src={author.avatar}
+        alt={`${author.name}のアバター`}
+        width="128"
+        height="128"
+        class="rounded-full w-6 h-6"
+      />
+      {author.name}
+    </p>
+  </div>
+  <p>
+    {frontmatter.description ?? (mode === 'postCard' ? altDescription : '')}
+  </p>
+  <ul class="flex flex-row gap-2 flex-wrap">
+    <li>
+      <a
+        href={`/category/${convertToSlug(frontmatter.category)}/`}
+        class={'inline-flex items-center gap-1 link-box' + (mode === 'postCard' ? ' relative z-10' : '')}
+        ><span class="icon-[ic--outline-category] text-lg"></span>{frontmatter.category}</a
+      >
+    </li>
+    {
+      frontmatter.tags.map((tag: string) => (
+        <li>
+          <a
+            href={`/tags/${convertToSlug(tag)}/`}
+            class={'inline-flex items-center gap-1 link-box' + (mode === 'postCard' ? ' relative z-10' : '')}
+          >
+            <span class="icon-[ic--outline-tag] text-lg" />
+            {tag}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>

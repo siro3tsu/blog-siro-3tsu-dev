@@ -1,0 +1,16 @@
+---
+import type { GetStaticPathsOptions } from 'astro';
+import { siteConfig } from '@site.config';
+import { getSortedPosts } from '@utils';
+import PaginationLayout from '@layouts/PaginationLayout.astro';
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const sortedPosts = await getSortedPosts();
+
+  return paginate(sortedPosts, { pageSize: siteConfig.postsPerPage });
+}
+
+const { page } = Astro.props;
+---
+
+<PaginationLayout page={page} title="投稿" basePath="" showTitle={false} />

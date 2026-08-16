@@ -1,0 +1,41 @@
+---
+import type { GetStaticPathsOptions } from 'astro';
+import { getSortedPosts, convertToSlug } from '@utils';
+import PaginationLayout from '@layouts/PaginationLayout.astro';
+import { siteConfig } from '@site.config';
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const sortedPosts = await getSortedPosts();
+  // すべての投稿の中からすべてのカテゴリを取得する。
+  const uniqueCategory = [...new Set(sortedPosts.flatMap((post) => post.data.category))];
+  const categorySlugs = uniqueCategory.map((category) => convertToSlug(category));
+
+  // すべてのカテゴリごとに処理を行う。
+  // ここでflatMapではなくflatを使うとエラーになるので注意（以下すべて同じ）
+  return categorySlugs.flatMap((category) => {
+    // そのカテゴリの投稿を取得
+    const filteredPosts = sortedPosts.filter((post) => convertToSlug(post.data.category) === category);
+    /* paginateの第一引数にはカテゴリでフィルタ処理した投稿のリスト
+    第二引数にはオブジェクトを渡す。
+    params: ここでページルート情報をテンプレートに渡す。
+    pageSize: １ページ当たりの投稿数
+    */
+    return paginate(filteredPosts, {
+      params: {
+        category,
+      },
+      props: { categoryName: uniqueCategory.find((cat) => convertToSlug(cat) === category) },
+      pageSize: siteConfig.postsPerPage,
+    });
+  });
+}
+const { page, categoryName } = Astro.props;
+const { category } = Astro.params;
+---
+
+<PaginationLayout
+  page={page}
+  title={`「${categoryName}」カテゴリの投稿`}
+  basePath={`/category/${category}`}
+  description={`「${categoryName}」カテゴリの投稿の一覧です。`}
+/>
