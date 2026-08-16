@@ -1,5 +1,6 @@
 import { getCollection } from 'astro:content';
 import removeMd from 'remove-markdown';
+
 export async function getSortedPosts() {
   const allPosts = await getCollection('blog');
   return [...allPosts].sort((a, b) => {

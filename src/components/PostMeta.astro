@@ -7,7 +7,7 @@ type Props = {
 };
 import { Image } from 'astro:assets';
 import { authorConfig } from '../site.config';
-import { convertToSlug } from '@utils';
+import { convertToSlug } from '@core/posts';
 
 const { frontmatter, altDescription, mode } = Astro.props;
 const author = authorConfig.find((item) => item.id === frontmatter.author)!;
