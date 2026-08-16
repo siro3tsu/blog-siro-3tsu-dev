@@ -5,6 +5,9 @@ import cloudflare from '@astrojs/cloudflare';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
+import react from '@astrojs/react';
+
+import { sitemapFilter } from './src/core/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
@@ -15,5 +18,5 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
-  integrations: [sitemap({filter: (page) => page !== siteConfig.baseUrl + '/privacy/' && page !== siteConfig.baseUrl + '/terms/'}), mdx()],
+  integrations: [sitemap({filter: sitemapFilter}), mdx(), react()],
 });

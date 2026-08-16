@@ -7,16 +7,26 @@
   ],
   "exclude": [
     "dist"
-],
-"compilerOptions": {
+  ],
+  "compilerOptions": {
     "types": [
-        "./worker-configuration.d.ts"
+      "./worker-configuration.d.ts"
     ],
     "paths": {
-      "@core/*": ["./src/core/*"],
-      "@layouts/*": ["./src/layouts/*"],
-      "@components/*": ["./src/components/*"],
-      "@site.config": ["./src/site.config.ts"],
+      "@core/*": [
+        "./src/core/*"
+      ],
+      "@layouts/*": [
+        "./src/layouts/*"
+      ],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@site.config": [
+        "./src/site.config.ts"
+      ]
     },
-}
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
+  }
 }

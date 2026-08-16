@@ -14,6 +14,7 @@ import type { CollectionEntry } from 'astro:content';
 import Layout from '@layouts/Layout.astro';
 import CopyScript from '@components/CopyScript.astro';
 import PostMeta from '@components/PostMeta.astro';
+import LastUpdatedWarn from '@components/LastUpdatedWarn.tsx';
 import { getAltDescription } from '@core/posts';
 
 export async function getStaticPaths() {
@@ -28,20 +29,6 @@ const { post } = Astro.props;
 const { Content, headings } = await render(post);
 
 const frontmatter = post.data;
-const publishedDate = {
-  year: frontmatter.publishedDate.getFullYear().toString(),
-  month: (frontmatter.publishedDate.getMonth() + 1).toString().padStart(2, '0'),
-  day: frontmatter.publishedDate.getDate().toString().padStart(2, '0'),
-};
-const updatedDate =
-  frontmatter.updatedDate !== undefined
-    ? {
-        year: frontmatter.updatedDate.getFullYear().toString(),
-        month: (frontmatter.updatedDate.getMonth() + 1).toString().padStart(2, '0'),
-        day: frontmatter.updatedDate.getDate().toString().padStart(2, '0'),
-      }
-    : publishedDate;
-
 const headingsList: HeadingListItem[] = [];
 const stack: any[] = [];
 headings.forEach((heading) => {
@@ -69,6 +56,7 @@ headings.forEach((heading) => {
   description={frontmatter.description ?? getAltDescription(post.body)}
 >
   <h1 class="text-3xl font-bold mb-4">{frontmatter.title}</h1>
+  <LastUpdatedWarn updatedDate={frontmatter.updatedDate ?? frontmatter.publishedDate} client:load />
   <PostMeta frontmatter={frontmatter} mode="postPage" altDescription={getAltDescription(post.body)} />
   <article>
     <Content />
