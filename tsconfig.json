@@ -13,18 +13,9 @@
       "./worker-configuration.d.ts"
     ],
     "paths": {
-      "@core/*": [
-        "./src/core/*"
+      "@*": [
+        "./src/*"
       ],
-      "@layouts/*": [
-        "./src/layouts/*"
-      ],
-      "@components/*": [
-        "./src/components/*"
-      ],
-      "@site.config": [
-        "./src/site.config.ts"
-      ]
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react"

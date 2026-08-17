@@ -52,7 +52,7 @@ const { year, month } = Astro.params;
   basePath={`/archive/${year}/${month}/posts`}
   description={`${year}年${month}月の投稿の一覧です。`}
 >
-  <a href={`/archive/${year}/`} class="link-box">
+  <a href={`/archive/${year}/`} class="chip">
     &lt;&nbsp;{year}年の投稿月一覧
   </a>
 </PaginationLayout>

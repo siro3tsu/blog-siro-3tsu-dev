@@ -26,7 +26,7 @@ const { page, title, description, basePath, showTitle = true } = Astro.props;
   useDefaultTitle={false}
 >
   <div class="pb-2 border-b mb-6">
-    {showTitle && <h1 class="text-3xl font-bold mb-2">{title}</h1>}
+    {showTitle && <h1 class="ignore-global text-3xl font-bold mb-2">{title}</h1>}
     <slot />
   </div>
   <ul class="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2">

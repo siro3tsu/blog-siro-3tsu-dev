@@ -16,12 +16,12 @@ const uniqueYears = [...new Set(sortedPosts.flatMap((post) => post.data.publishe
           <h2 class="text-lg font-semibold">{year}年</h2>
           <ul class="flex flex-row gap-2">
             <li>
-              <a href={`/archive/${year}/`} class="link-box">
+              <a href={`/archive/${year}/`} class="chip">
                 投稿月一覧
               </a>
             </li>
             <li>
-              <a href={`/archive/${year}/posts/`} class="link-box">
+              <a href={`/archive/${year}/posts/`} class="chip">
                 投稿一覧
               </a>
             </li>

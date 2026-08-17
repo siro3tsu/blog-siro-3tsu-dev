@@ -12,7 +12,7 @@ const uniqueTags = [...new Set(sortedPosts.flatMap((post) => post.data.tags))];
     {
       uniqueTags.map((tag) => (
         <li>
-          <a href={`/tags/${convertToSlug(tag)}/`} class="inline-flex items-center gap-1 link-box">
+          <a href={`/tags/${convertToSlug(tag)}/`} class="inline-flex items-center gap-1 chip">
             <span class="icon-[ic--outline-tag] text-lg" />
             {tag}
           </a>

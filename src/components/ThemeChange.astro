@@ -54,12 +54,17 @@
     themeChangeComponent
       .querySelectorAll(`button[value="${theme}"], .mode-${theme}, .mode-${theme}-${deviceType}`)
       .forEach((el) => el.setAttribute('aria-current', 'true'));
+    const root = document.documentElement;
+    root.classList.add('[&_*]:!transition-none');
     if (theme === 'system') theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     if (theme === 'light') {
       document.documentElement.setAttribute('data-theme', 'light');
     } else if (theme === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
     }
+    window.requestAnimationFrame(() => {
+      root.classList.remove('[&_*]:!transition-none');
+    });
   };
 
   let deviceType;
@@ -88,7 +93,6 @@
 </script>
 <style>
   @reference '../styles/global.css';
-  @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
   .theme-change-btn {
     @apply w-full rounded-md px-1 py-2 text-left aria-current:bg-primary-300/70 dark:aria-current:bg-primary-700/70 hover:bg-primary-200/70 dark:hover:bg-primary-800/70 hover:aria-current:bg-primary-300/50 dark:hover:aria-current:bg-primary-700/90 flex flex-row items-center gap-1 cursor-pointer;
   }

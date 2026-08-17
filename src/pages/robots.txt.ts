@@ -4,10 +4,51 @@ const getRobotsTxt = async (sitemapURL: URL) => {
   const request = await fetch('https://raw.githubusercontent.com/ai-robots-txt/ai.robots.txt/main/robots.txt');
   const robotsTxt = await request.text();
 
-  return `# Pulled from https://github.com/ai-robots-txt/ai.robots.txt
-# ${new Date().toUTCString()}
+  return `# As a condition of accessing this website, you agree to abide by
+# the following content signals:
+
+# (a)  If a content-signal = yes, you may collect content for the
+# corresponding use.
+# (b)  If a content-signal = no, you may not collect content for
+# the corresponding use.
+# (c)  If the website operator does not include a content signal
+# for a corresponding use, the website operator neither grants nor
+# restricts permission via content signal with respect to the
+# corresponding use.
+
+# The content signals and their meanings are:
+
+# search: building a search index and providing search results
+# (e.g., returning hyperlinks and short excerpts from your
+# website's contents).  Search does not include providing
+# AI-generated search summaries.
+# ai-input: inputting content into one or more AI models (e.g.,
+# retrieval augmented generation, grounding, or other real-time
+# taking of content for generative AI search answers).
+# ai-train: training or fine-tuning AI models.
+
+# ANY RESTRICTIONS EXPRESSED VIA CONTENT SIGNALS ARE EXPRESS
+# RESERVATIONS OF RIGHTS UNDER ARTICLE 4 OF THE EUROPEAN UNION
+# DIRECTIVE 2019/790 ON COPYRIGHT AND RELATED RIGHTS IN THE
+# DIGITAL SINGLE MARKET.
+
+User-Agent: *
+Content-Signal: ai-train=no, search=yes, ai-input=no
+Allow: /
+
+# Fetched from https://raw.githubusercontent.com/ai-robots-txt/ai.robots.txt/main/robots.txt
+# at ${new Date().toUTCString()}
 
 ${robotsTxt}
+# Fetched Content End
+
+User-agent: Grok
+User-agent: GrokBot
+User-agent: xAI-Bot
+User-agent: xAI-Grok
+User-agent: Grok-DeepSearch
+User-agent: xAI-SearchBot
+Disallow: /
 
 Sitemap: ${sitemapURL.href}
 `;

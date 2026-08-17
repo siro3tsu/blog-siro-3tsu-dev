@@ -16,6 +16,8 @@ export const siteConfig: {
   postsPerPage: 1,
 };
 
+export const pathIgnoredFromSitemap = ['/privacy/', '/terms/'];
+
 export const headerItems: {
   label: string;
   href: string;

@@ -29,30 +29,8 @@ const updatedDate =
 <div class="flex flex-col gap-2">
   <div class="flex flex-row gap-2 flex-wrap">
     <p class="flex items-center gap-1">
-      <span class="icon-[material-symbols--calendar-clock-outline] text-lg"></span>{
-        mode === 'postPage' ? (
-          <span class="flex">
-            <>
-              <a href={`/archive/${publishedDate.year}/posts/`} class="hover:underline">
-                {publishedDate.year}
-              </a>
-              <span>/</span>
-              <a href={`/archive/${publishedDate.year}/${publishedDate.month}/posts/`} class="hover:underline">
-                {publishedDate.month}
-              </a>
-              <span>/</span>
-              <a
-                href={`/archive/${publishedDate.year}/${publishedDate.month}/${publishedDate.day}/posts/`}
-                class="hover:underline"
-              >
-                {publishedDate.day}
-              </a>
-            </>
-          </span>
-        ) : (
-          `${publishedDate.year}/${publishedDate.month}/${publishedDate.day}`
-        )
-      }
+      <span class="icon-[material-symbols--calendar-clock-outline] text-lg"></span>
+      {publishedDate.year}/{publishedDate.month}/{publishedDate.day}
     </p>
     <p class="flex items-center gap-1">
       <span class="icon-[material-symbols--edit-calendar-outline] text-lg"></span>
@@ -76,7 +54,7 @@ const updatedDate =
     <li>
       <a
         href={`/category/${convertToSlug(frontmatter.category)}/`}
-        class={'inline-flex items-center gap-1 link-box' + (mode === 'postCard' ? ' relative z-10' : '')}
+        class={'inline-flex items-center gap-1 chip' + (mode === 'postCard' ? ' relative z-10' : '')}
         ><span class="icon-[ic--outline-category] text-lg"></span>{frontmatter.category}</a
       >
     </li>
@@ -85,7 +63,7 @@ const updatedDate =
         <li>
           <a
             href={`/tags/${convertToSlug(tag)}/`}
-            class={'inline-flex items-center gap-1 link-box' + (mode === 'postCard' ? ' relative z-10' : '')}
+            class={'inline-flex items-center gap-1 chip' + (mode === 'postCard' ? ' relative z-10' : '')}
           >
             <span class="icon-[ic--outline-tag] text-lg" />
             {tag}

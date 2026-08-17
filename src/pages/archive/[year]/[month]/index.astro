@@ -43,7 +43,7 @@ const { year, month } = Astro.params;
 ---
 
 <Layout title={`${year}年${month}月の投稿日一覧`} description={`${year}年${month}月の投稿があった日の一覧です。`}>
-  <a href={`/archive/${year}/`} class="link-box">
+  <a href={`/archive/${year}/`} class="chip">
     &lt;&nbsp;{year}年の投稿月一覧
   </a>
   <ul class="mt-2 flex flex-row flex-wrap gap-2">
@@ -53,7 +53,7 @@ const { year, month } = Astro.params;
           <h2 class="text-lg font-semibold">{day}日</h2>
           <ul>
             <li>
-              <a href={`/archive/${year}/${month}/${day}/posts/`} class="link-box">
+              <a href={`/archive/${year}/${month}/${day}/posts/`} class="chip">
                 投稿一覧
               </a>
             </li>

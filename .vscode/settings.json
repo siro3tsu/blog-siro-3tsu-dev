@@ -9,6 +9,7 @@
     "noarchive",
     "noimageai",
     "nopin",
+    "nosniff",
     "tuta"
   ]
 }

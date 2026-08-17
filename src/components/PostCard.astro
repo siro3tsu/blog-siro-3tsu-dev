@@ -6,6 +6,8 @@ const { slug, frontmatter, altDescription } = Astro.props;
 
 <li class="relative flex flex-col gap-2 p-4 border rounded-lg">
   <a href={slug} class="absolute inset-0" tabindex="-1" aria-hidden="true"></a>
-  <h2 class="text-xl font-bold mb-2"><a href={slug} class="hover:underline relative z-10">{frontmatter.title}</a></h2>
+  <h2 class="ignore-global text-xl font-bold">
+    <a href={slug} class="hover:underline relative z-10">{frontmatter.title}</a>
+  </h2>
   <PostMeta frontmatter={frontmatter} mode="postCard" altDescription={altDescription} />
 </li>

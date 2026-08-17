@@ -12,7 +12,7 @@ const uniqueCategory = [...new Set(sortedPosts.flatMap((post) => post.data.categ
     {
       uniqueCategory.map((category) => (
         <li>
-          <a href={`/category/${convertToSlug(category)}/`} class="inline-flex items-center gap-1 link-box">
+          <a href={`/category/${convertToSlug(category)}/`} class="inline-flex items-center gap-1 chip">
             <span class="icon-[ic--outline-category] text-lg" />
             {category}
           </a>

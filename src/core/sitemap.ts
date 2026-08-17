@@ -1,4 +1,4 @@
-import { siteConfig } from '@site.config';
+import { siteConfig, pathIgnoredFromSitemap } from '@site.config';
 
 export const sitemapFilter = (page: string) =>
-  page !== siteConfig.baseUrl + '/privacy/' && page !== siteConfig.baseUrl + '/terms/';
+  !pathIgnoredFromSitemap.includes(new URL(page, siteConfig.baseUrl).pathname);
