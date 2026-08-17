@@ -1,7 +1,7 @@
 ---
 import PostMeta from '@components/PostMeta.astro';
 
-const { slug, frontmatter, altDescription } = Astro.props;
+const { slug, frontmatter } = Astro.props;
 ---
 
 <li class="relative flex flex-col gap-2 p-4 border rounded-lg">
@@ -9,5 +9,5 @@ const { slug, frontmatter, altDescription } = Astro.props;
   <h2 class="ignore-global text-xl font-bold">
     <a href={slug} class="hover:underline relative z-10">{frontmatter.title}</a>
   </h2>
-  <PostMeta frontmatter={frontmatter} mode="postCard" altDescription={altDescription} />
+  <PostMeta frontmatter={frontmatter} mode="postCard" />
 </li>

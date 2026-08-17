@@ -4,7 +4,7 @@ export default function lastUpdatedWarn({ updatedDate }: { updatedDate: Date }) 
 
   return diffInYears > 1 ? (
     <div
-      className="bg-yellow-100 border rounded border-yellow-500 text-orange-700 p-4 mb-4 font-bold flex flex-row items-center gap-1"
+      className="bg-yellow-100 dark:bg-orange-900 border rounded border-yellow-500 text-orange-700 dark:text-yellow-100 p-4 mb-1 font-bold flex flex-row items-center gap-1"
       role="alert"
     >
       <span className="icon-[material-symbols--warning-outline] text-xl"></span>最終更新日から{diffInYears}

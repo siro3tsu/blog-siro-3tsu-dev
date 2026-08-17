@@ -19,7 +19,7 @@ export const convertToSlug = (tag: string) =>
     .replace(/\+/g, 'plus')
     .replace(/&/g, 'and');
 
-export const getAltDescription = (content: string | undefined) => {
+export const getDescription = (content: string | undefined) => {
   const textContent = removeMd(content || '');
   return textContent.slice(0, 100) + (textContent.length > 100 ? '...' : '');
 };

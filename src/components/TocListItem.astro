@@ -1,0 +1,27 @@
+---
+type HeadingListItem = {
+  slug: string;
+  text: string;
+  children?: HeadingListItem[];
+};
+type Props = {
+  heading: HeadingListItem;
+};
+const { heading } = Astro.props;
+import TocListItem from '@components/TocListItem.astro';
+---
+
+<li>
+  <a href={`#${heading.slug}`} class="hover:underline">
+    {heading.text}
+  </a>
+  {
+    heading.children && (
+      <ol class="toc mt-2 pl-4 flex flex-col gap-2 list-decimal list-inside">
+        {heading.children.map((child: HeadingListItem) => (
+          <TocListItem heading={child} />
+        ))}
+      </ol>
+    )
+  }
+</li>

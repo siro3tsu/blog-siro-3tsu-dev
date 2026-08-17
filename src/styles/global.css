@@ -53,3 +53,15 @@ p:not(.ignore-global) {
   --tw-prose-invert-counters: var(--color-gray-300);
   --tw-prose-invert-bullets: var(--color-gray-300);
 }
+
+.toc {
+  counter-reset: section;
+}
+
+.toc > li {
+  counter-increment: section;
+}
+
+.toc > li::marker {
+  content: counters(section, '.') '. ';
+}

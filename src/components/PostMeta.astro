@@ -2,14 +2,13 @@
 import type { CollectionEntry } from 'astro:content';
 type Props = {
   frontmatter: CollectionEntry<'blog'>['data'];
-  altDescription: string;
   mode?: 'postPage' | 'postCard';
 };
 import { Image } from 'astro:assets';
 import { authorConfig } from '../site.config';
 import { convertToSlug } from '@core/posts';
 
-const { frontmatter, altDescription, mode } = Astro.props;
+const { frontmatter, mode } = Astro.props;
 const author = authorConfig.find((item) => item.id === frontmatter.author)!;
 const publishedDate = {
   year: frontmatter.publishedDate.getFullYear().toString(),
@@ -26,7 +25,7 @@ const updatedDate =
     : publishedDate;
 ---
 
-<div class="flex flex-col gap-2">
+<div class="flex flex-col gap-1">
   <div class="flex flex-row gap-2 flex-wrap">
     <p class="flex items-center gap-1">
       <span class="icon-[material-symbols--calendar-clock-outline] text-lg"></span>
@@ -47,9 +46,6 @@ const updatedDate =
       {author.name}
     </p>
   </div>
-  <p>
-    {frontmatter.description ?? (mode === 'postCard' ? altDescription : '')}
-  </p>
   <ul class="flex flex-row gap-2 flex-wrap">
     <li>
       <a

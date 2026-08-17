@@ -15,7 +15,8 @@ import Layout from '@layouts/Layout.astro';
 import CopyScript from '@components/CopyScript.astro';
 import PostMeta from '@components/PostMeta.astro';
 import LastUpdatedWarn from '@components/LastUpdatedWarn.tsx';
-import { getAltDescription } from '@core/posts';
+import TocListItem from '@components/TocListItem.astro';
+import { getDescription } from '@core/posts';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -50,14 +51,14 @@ headings.forEach((heading) => {
 });
 ---
 
-<Layout
-  title={frontmatter.title}
-  useDefaultTitle={false}
-  description={frontmatter.description ?? getAltDescription(post.body)}
->
+<Layout title={frontmatter.title} useDefaultTitle={false} description={getDescription(post.body)}>
   <h1 class="text-3xl font-bold mb-4">{frontmatter.title}</h1>
   <LastUpdatedWarn updatedDate={frontmatter.updatedDate ?? frontmatter.publishedDate} client:load />
-  <PostMeta frontmatter={frontmatter} mode="postPage" altDescription={getAltDescription(post.body)} />
+  <PostMeta frontmatter={frontmatter} mode="postPage" />
+  <ol class="toc border rounded px-4 py-2 flex flex-col gap-2 mt-4 list-decimal list-inside w-fit">
+    <h2>目次</h2>
+    {headingsList.map((heading) => <TocListItem heading={heading} />)}
+  </ol>
   <article>
     <Content />
   </article>
@@ -66,22 +67,8 @@ headings.forEach((heading) => {
 <style>
   @reference "@styles/global.css";
 
-  .toc {
-    ol {
-      counter-reset: section;
-    }
-
-    ol > li {
-      counter-increment: section;
-    }
-
-    ol > li::marker {
-      content: counters(section, '.') '. ';
-    }
-  }
-
   article {
-    @apply mt-2 prose prose-black prose-blue dark:prose-invert max-w-none;
+    @apply mt-12 prose prose-black prose-blue dark:prose-invert max-w-none;
     @apply prose-code:bg-primary-200 prose-code:dark:bg-primary-900 prose-code:p-1 prose-code:mx-1 prose-code:rounded prose-code:not-data-copy:before:content-none prose-code:after:content-none;
     @apply prose-code:data-copy:cursor-pointer prose-code:data-copy:before:icon-[ic--outline-content-copy];
     @apply prose-code:data-copy:before:mr-1 prose-code:data-copy:before:text-lg prose-code:data-copy:before:align-middle prose-code:data-copy:hover:bg-primary-300 prose-code:data-copy:hover:dark:bg-primary-700;
