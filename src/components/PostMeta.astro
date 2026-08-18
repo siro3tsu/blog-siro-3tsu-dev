@@ -22,7 +22,7 @@ const updatedDate =
         month: (frontmatter.updatedDate.getMonth() + 1).toString().padStart(2, '0'),
         day: frontmatter.updatedDate.getDate().toString().padStart(2, '0'),
       }
-    : null;
+    : undefined;
 ---
 
 <div class="flex flex-col gap-1">

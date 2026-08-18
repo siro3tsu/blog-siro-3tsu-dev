@@ -12,10 +12,10 @@ all Rights Reserved:
 - Personal photographs and illustrations
 - Logos, icons, and other branding materials
 - Files under:
-  - `src/images/`
+  - `src/assets/`
+  - `src/blog/`
   - `public/`
   - `resources/`
-  - `src/blog/`
 - Other non-code assets explicitly marked as "All Rights Reserved"
 
 These works may not be reproduced, modified, distributed, used to train

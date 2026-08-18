@@ -1,4 +1,4 @@
-import siro3tsuAvatar from './images/avatar.png';
+import siro3tsuAvatar from '@assets/img/avatar.png';
 
 export const siteConfig: {
   baseUrl: string;
