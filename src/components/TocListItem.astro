@@ -17,7 +17,7 @@ import TocListItem from '@components/TocListItem.astro';
   </a>
   {
     heading.children && (
-      <ol class="toc mt-2 pl-4 flex flex-col gap-2 list-decimal list-inside">
+      <ol class="toc mt-2 ml-4 flex flex-col gap-2 list-decimal list-inside">
         {heading.children.map((child: HeadingListItem) => (
           <TocListItem heading={child} />
         ))}

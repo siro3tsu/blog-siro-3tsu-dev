@@ -7,7 +7,7 @@ const sortedPosts = await getSortedPosts();
 const uniqueCategory = [...new Set(sortedPosts.flatMap((post) => post.data.category))];
 ---
 
-<Layout title="カテゴリ" description="カテゴリの一覧です。">
+<Layout title="Category" description="カテゴリの一覧です。">
   <ul class="flex flex-row flex-wrap gap-2">
     {
       uniqueCategory.map((category) => (

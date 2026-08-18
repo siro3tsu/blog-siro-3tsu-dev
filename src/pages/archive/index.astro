@@ -6,25 +6,40 @@ import Layout from '@layouts/Layout.astro';
 const sortedPosts = await getSortedPosts();
 // すべての投稿の中からすべての年（2023,2024など）を取得する。
 const uniqueYears = [...new Set(sortedPosts.flatMap((post) => post.data.publishedDate.getFullYear()))];
+
+const monthList: { year: number; months: number[] }[] = uniqueYears.map((year) => {
+  const months = sortedPosts
+    .filter((post) => post.data.publishedDate.getFullYear() === year)
+    .map((post) => post.data.publishedDate.getMonth() + 1);
+  return { year, months: [...new Set(months)] };
+});
 ---
 
-<Layout title="投稿年一覧" description="投稿があった年の一覧です。">
-  <ul class="flex flex-row flex-wrap gap-2">
+<Layout title="Archive" description="投稿があった年の一覧です。">
+  <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
     {
       uniqueYears.map((year) => (
         <li class="flex flex-col gap-1 p-2 border rounded-md border-gray-300 dark:border-gray-700">
-          <h2 class="text-lg font-semibold">{year}年</h2>
-          <ul class="flex flex-row gap-2">
-            <li>
-              <a href={`/archive/${year}/`} class="chip">
-                投稿月一覧
-              </a>
-            </li>
-            <li>
-              <a href={`/archive/${year}/posts/`} class="chip">
-                投稿一覧
-              </a>
-            </li>
+          <h2 class="text-lg font-semibold mb-2">
+            <a href={`/archive/${year}/posts/`} class="hover:underline">
+              {year}年
+            </a>
+          </h2>
+          <ul class="grid grid-cols-4 gap-2">
+            {monthList
+              .filter((item) => item.year === year)
+              .flatMap((item) => item.months)
+              .sort((a, b) => a - b)
+              .map((month) => (
+                <li>
+                  <a
+                    href={`/archive/${year}/${month.toString().padStart(2, '0')}/posts/`}
+                    class="chip block w-full text-center"
+                  >
+                    {month}月
+                  </a>
+                </li>
+              ))}
           </ul>
         </li>
       ))

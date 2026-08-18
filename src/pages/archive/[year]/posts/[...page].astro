@@ -14,8 +14,8 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   // ここでflatMapではなくflatを使うとエラーになるので注意（以下すべて同じ）
   return uniqueYears.flatMap((year) => {
     // その年の投稿を取得
-
     const filteredPosts = sortedPosts.filter((post) => post.data.publishedDate.getFullYear() === year);
+
     /* paginateの第一引数には日付でフィルタ処理した投稿のリスト
         第二引数にはオブジェクトを渡す。
         params: ここでページルート情報をテンプレートに渡す。
@@ -38,6 +38,4 @@ const { year } = Astro.params;
   title={`${year}年の投稿`}
   basePath={`/archive/${year}/posts`}
   description={`${year}年の投稿の一覧です。`}
->
-  <a href={`/archive/`} class="chip"> &lt;&nbsp;投稿年一覧 </a>
-</PaginationLayout>
+/>

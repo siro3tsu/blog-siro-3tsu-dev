@@ -7,7 +7,7 @@ const sortedPosts = await getSortedPosts();
 const uniqueTags = [...new Set(sortedPosts.flatMap((post) => post.data.tags))];
 ---
 
-<Layout title="タグ" description="タグの一覧です。">
+<Layout title="Tags" description="タグの一覧です。">
   <ul class="flex flex-row flex-wrap gap-2">
     {
       uniqueTags.map((tag) => (

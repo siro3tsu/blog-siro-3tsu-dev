@@ -55,10 +55,16 @@ headings.forEach((heading) => {
   <h1 class="text-3xl font-bold mb-4">{frontmatter.title}</h1>
   <LastUpdatedWarn updatedDate={frontmatter.updatedDate ?? frontmatter.publishedDate} client:load />
   <PostMeta frontmatter={frontmatter} mode="postPage" />
-  <ol class="toc border rounded px-4 py-2 flex flex-col gap-2 mt-4 list-decimal list-inside w-fit">
-    <h2>目次</h2>
-    {headingsList.map((heading) => <TocListItem heading={heading} />)}
-  </ol>
+  {
+    headingsList.length > 0 && (
+      <ol class="toc border rounded px-4 py-2 flex flex-col gap-2 mt-4 list-decimal list-inside w-fit">
+        <h2>目次</h2>
+        {headingsList.map((heading) => (
+          <TocListItem heading={heading} />
+        ))}
+      </ol>
+    )
+  }
   <article>
     <Content />
   </article>
@@ -67,6 +73,11 @@ headings.forEach((heading) => {
 <style>
   @reference "@styles/global.css";
 
+  article {
+    @apply prose-h1:mb-3 prose-h1:text-3xl prose-h1:font-bold prose-h1:pb-1 prose-h1:border-b prose-h1:border-gray-900 dark:prose-h1:border-gray-100;
+    @apply prose-h2:my-2 prose-h2:text-2xl prose-h2:font-semibold prose-h2:pb-1 prose-h2:border-b prose-h2:border-gray-900 dark:prose-h2:border-gray-100;
+    @apply prose-h3:my-2 prose-h3:text-xl prose-h3:font-medium;
+  }
   article {
     @apply mt-12 prose prose-black prose-blue dark:prose-invert max-w-none;
     @apply prose-code:bg-primary-200 prose-code:dark:bg-primary-900 prose-code:p-1 prose-code:mx-1 prose-code:rounded prose-code:not-data-copy:before:content-none prose-code:after:content-none;

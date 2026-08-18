@@ -22,7 +22,7 @@ const updatedDate =
         month: (frontmatter.updatedDate.getMonth() + 1).toString().padStart(2, '0'),
         day: frontmatter.updatedDate.getDate().toString().padStart(2, '0'),
       }
-    : publishedDate;
+    : null;
 ---
 
 <div class="flex flex-col gap-1">
@@ -31,10 +31,14 @@ const updatedDate =
       <span class="icon-[material-symbols--calendar-clock-outline] text-lg"></span>
       {publishedDate.year}/{publishedDate.month}/{publishedDate.day}
     </p>
-    <p class="flex items-center gap-1">
-      <span class="icon-[material-symbols--edit-calendar-outline] text-lg"></span>
-      {`${updatedDate.year}/${updatedDate.month}/${updatedDate.day}`}
-    </p>
+    {
+      updatedDate && (
+        <p class="flex items-center gap-1">
+          <span class="icon-[material-symbols--edit-calendar-outline] text-lg" />
+          {updatedDate.year}/{updatedDate.month}/{updatedDate.day}
+        </p>
+      )
+    }
     <p class="flex items-center gap-1">
       <Image
         src={author.avatar}
@@ -50,8 +54,8 @@ const updatedDate =
     <li>
       <a
         href={`/category/${convertToSlug(frontmatter.category)}/`}
-        class={'inline-flex items-center gap-1 chip' + (mode === 'postCard' ? ' relative z-10' : '')}
-        ><span class="icon-[ic--outline-category] text-lg"></span>{frontmatter.category}</a
+        class={'inline-flex items-center gap-1 chip text-sm' + (mode === 'postCard' ? ' relative z-10' : '')}
+        ><span class="icon-[ic--outline-category] text-sm"></span>{frontmatter.category}</a
       >
     </li>
     {
@@ -59,9 +63,9 @@ const updatedDate =
         <li>
           <a
             href={`/tags/${convertToSlug(tag)}/`}
-            class={'inline-flex items-center gap-1 chip' + (mode === 'postCard' ? ' relative z-10' : '')}
+            class={'inline-flex items-center gap-1 chip text-sm' + (mode === 'postCard' ? ' relative z-10' : '')}
           >
-            <span class="icon-[ic--outline-tag] text-lg" />
+            <span class="icon-[ic--outline-tag] text-sm" />
             {tag}
           </a>
         </li>

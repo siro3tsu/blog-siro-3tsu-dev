@@ -21,5 +21,6 @@ export const convertToSlug = (tag: string) =>
 
 export const getDescription = (content: string | undefined) => {
   const textContent = removeMd(content || '');
-  return textContent.slice(0, 100) + (textContent.length > 100 ? '...' : '');
+  const description = textContent.replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
+  return description.slice(0, 100) + (description.length > 100 ? '...' : '');
 };
