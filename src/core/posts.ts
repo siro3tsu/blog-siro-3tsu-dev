@@ -1,5 +1,6 @@
 import { getCollection } from 'astro:content';
 import removeMd from 'remove-markdown';
+import { slugConfig } from '@site.config';
 
 export async function getSortedPosts() {
   const allPosts = await getCollection('blog');
@@ -10,14 +11,12 @@ export async function getSortedPosts() {
   });
 }
 
-export const convertToSlug = (tag: string) =>
-  tag
-    .toLowerCase()
-    .replace('c++', 'cpp')
-    .replace(/\s/g, '-')
-    .replace(/#/g, 'sharp')
-    .replace(/\+/g, 'plus')
-    .replace(/&/g, 'and');
+export const convertToSlug = (tag: string) => {
+  const lowerTag = tag.toLowerCase();
+  return slugConfig.reduce((slug, config) => {
+    return slug.replace(config.regex, config.replacement);
+  }, lowerTag);
+};
 
 export const getDescription = (content: string | undefined) => {
   const textContent = removeMd(content || '');

@@ -47,3 +47,18 @@ export const authorConfig: {
     avatar: siro3tsuAvatar,
   },
 ];
+
+export const slugConfig: { regex: RegExp; replacement: string }[] = [
+  {
+    regex: /c\+\+/g,
+    replacement: 'cpp',
+  },
+  {
+    regex: /c#/g,
+    replacement: 'csharp',
+  },
+  {
+    regex: /\s/g,
+    replacement: '-',
+  },
+];
