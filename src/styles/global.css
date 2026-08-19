@@ -29,7 +29,7 @@
 }
 
 @utility chip {
-  @apply bg-purple-200 dark:bg-primary-900 px-2 py-1 rounded hover:bg-purple-300 dark:hover:bg-indigo-700 transition-bg duration-300 whitespace-nowrap data-copy:cursor-pointer data-copy:before:icon-[ic--outline-content-copy] data-copy:before:mr-1 data-copy:before:text-lg data-copy:before:align-middle;
+  @apply bg-primary-200 dark:bg-primary-900 px-2 py-1 rounded hover:bg-primary-300 dark:hover:bg-primary-700 transition-bg duration-300 whitespace-nowrap data-copy:cursor-pointer data-copy:before:icon-[ic--outline-content-copy] data-copy:before:mr-1 data-copy:before:text-lg data-copy:before:align-middle;
 }
 
 @utility prose-black {
