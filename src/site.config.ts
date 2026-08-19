@@ -1,4 +1,5 @@
 import siro3tsuAvatar from '@assets/img/avatar.png';
+import type { ThemeObjectOrShikiThemeName } from 'astro-expressive-code';
 
 export const siteConfig: {
   baseUrl: string;
@@ -7,6 +8,7 @@ export const siteConfig: {
   defaultDescription: string;
   defaultOgImagePath: string;
   postsPerPage: number;
+  expressiveCodeTheme: ThemeObjectOrShikiThemeName[];
 } = {
   baseUrl: 'https://blog.siro.3tsu.dev',
   siteName: "しろみつ's Blog",
@@ -14,6 +16,7 @@ export const siteConfig: {
   defaultDescription: 'しろみつのブログです。技術的なことや日常のことなどを書いていきます。',
   defaultOgImagePath: '/og-image.png',
   postsPerPage: 1,
+  expressiveCodeTheme: ['dark-plus', 'light-plus'],
 };
 
 export const pathIgnoredFromSitemap = ['/privacy/', '/terms/'];

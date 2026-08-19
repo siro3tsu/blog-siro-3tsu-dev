@@ -1,8 +1,8 @@
 ---
-
+import { siteConfig } from '@site.config';
 ---
 
-<div class="theme-change-component" transition:persist>
+<div class="theme-change-component" transition:persist data-expressive-code-theme={siteConfig.expressiveCodeTheme}>
   <div class="relative hover:[&>div]:opacity-100">
     <button
       popovertarget="theme-popover"
@@ -12,8 +12,8 @@
       <div class="text-2xl w-6 h-6">
         <span class="mode-light icon-[material-symbols--light-mode-outline] hidden aria-current:block"></span>
         <span class="mode-dark icon-[material-symbols--dark-mode-outline] hidden aria-current:block"></span>
-        <span class="mode-system-pc icon-[ic--baseline-computer] hidden aria-current:block"></span>
-        <span class="mode-system-sp icon-[ic--baseline-smartphone] hidden aria-current:block"></span>
+        <span class="mode-system-pc icon-[mdi--computer] hidden aria-current:block"></span>
+        <span class="mode-system-sp icon-[mdi--smartphone] hidden aria-current:block"></span>
       </div>
     </button>
     <div
@@ -40,8 +40,8 @@
       </li>
       <li>
         <button value="system" type="button" class="theme-change-btn">
-          <span class="system-pc icon-[ic--baseline-computer] mr-1"></span>
-          <span class="system-sp icon-[ic--baseline-smartphone] mr-1"></span>
+          <span class="system-pc icon-[mdi--computer] mr-1"></span>
+          <span class="system-sp icon-[mdi--smartphone] mr-1"></span>
           システム設定
         </button>
       </li>
@@ -50,6 +50,7 @@
 </div>
 <script is:inline>
   const themeChangeComponent = document.querySelector('.theme-change-component');
+  const expressiveCodeTheme = themeChangeComponent.getAttribute('data-expressive-code-theme').split(',');
   const changeTheme = (theme) => {
     themeChangeComponent
       .querySelectorAll(`button[value="${theme}"], .mode-${theme}, .mode-${theme}-${deviceType}`)
@@ -66,7 +67,26 @@
       root.classList.remove('[&_*]:!transition-none');
     });
   };
-
+  const changePostComponentsTheme = (theme) => {
+    if (theme === 'system') theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    if (theme === 'light') {
+      // mermaidのdarkモード時のsourceをimgの後ろに持ってくる
+      document.querySelectorAll('[id^="mermaid-dark-"]').forEach((el) => {
+        el.parentNode.insertBefore(el, el.parentNode.querySelector('img').nextSibling);
+      });
+      document.querySelectorAll('.expressive-code').forEach((el) => {
+        el.setAttribute('data-theme', expressiveCodeTheme[1]);
+      });
+    } else if (theme === 'dark') {
+      // mermaidのdarkモード時のsourceをimgの前に持ってくる
+      document.querySelectorAll('[id^="mermaid-dark-"]').forEach((el) => {
+        el.parentNode.insertBefore(el, el.parentNode.querySelector('img'));
+      });
+      document.querySelectorAll('.expressive-code').forEach((el) => {
+        el.setAttribute('data-theme', expressiveCodeTheme[0]);
+      });
+    }
+  };
   let deviceType;
   if (window.matchMedia('(max-width: 768px) and (hover: none) and (pointer: coarse)').matches) {
     themeChangeComponent.querySelector('.system-pc').classList.add('hidden');
@@ -76,6 +96,9 @@
     deviceType = 'pc';
   }
   changeTheme(localStorage.getItem('theme') || 'system');
+  document.addEventListener('astro:page-load', () =>
+    changePostComponentsTheme(localStorage.getItem('theme') || 'system'),
+  );
   document.addEventListener('astro:after-swap', () => changeTheme(localStorage.getItem('theme') || 'system'));
   const themePopover = document.querySelector('#theme-popover');
   const themeButtons = themePopover.querySelectorAll('button');

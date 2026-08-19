@@ -28,13 +28,13 @@ const updatedDate =
 <div class="flex flex-col gap-1">
   <div class="flex flex-row gap-2 flex-wrap">
     <p class="flex items-center gap-1">
-      <span class="icon-[material-symbols--calendar-clock-outline] text-lg"></span>
+      <span class="icon-[mdi--calendar-clock-outline] text-lg"></span>
       {publishedDate.year}/{publishedDate.month}/{publishedDate.day}
     </p>
     {
       updatedDate && (
         <p class="flex items-center gap-1">
-          <span class="icon-[material-symbols--edit-calendar-outline] text-lg" />
+          <span class="icon-[mdi--calendar-edit-outline] text-lg" />
           {updatedDate.year}/{updatedDate.month}/{updatedDate.day}
         </p>
       )
@@ -58,7 +58,7 @@ const updatedDate =
             href={`/tags/${convertToSlug(tag)}/`}
             class={'inline-flex items-center gap-1 chip text-sm' + (mode === 'postCard' ? ' relative z-10' : '')}
           >
-            <span class="icon-[ic--outline-tag] text-sm" />
+            <span class="icon-[mdi--tag] text-sm" />
             {tag}
           </a>
         </li>
