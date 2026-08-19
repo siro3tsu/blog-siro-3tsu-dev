@@ -63,6 +63,7 @@ import { siteConfig } from '@site.config';
     } else if (theme === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
     }
+    changePostComponentsTheme(theme);
     window.requestAnimationFrame(() => {
       root.classList.remove('[&_*]:!transition-none');
     });

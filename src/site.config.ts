@@ -15,7 +15,7 @@ export const siteConfig: {
   xAccount: 'siro3tsu',
   defaultDescription: 'しろみつのブログです。技術的なことや日常のことなどを書いていきます。',
   defaultOgImagePath: '/og-image.png',
-  postsPerPage: 1,
+  postsPerPage: 10,
   expressiveCodeTheme: ['dark-plus', 'light-plus'],
 };
 
