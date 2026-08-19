@@ -51,13 +51,6 @@ const updatedDate =
     </p>
   </div>
   <ul class="flex flex-row gap-2 flex-wrap">
-    <li>
-      <a
-        href={`/category/${convertToSlug(frontmatter.category)}/`}
-        class={'inline-flex items-center gap-1 chip text-sm' + (mode === 'postCard' ? ' relative z-10' : '')}
-        ><span class="icon-[ic--outline-category] text-sm"></span>{frontmatter.category}</a
-      >
-    </li>
     {
       frontmatter.tags.map((tag: string) => (
         <li>

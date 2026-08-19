@@ -51,7 +51,12 @@ headings.forEach((heading) => {
 });
 ---
 
-<Layout title={frontmatter.title} useDefaultTitle={false} description={getDescription(post.body)}>
+<Layout
+  title={frontmatter.title}
+  useDefaultTitle={false}
+  description={getDescription(post.body)}
+  ogImagePath={`/posts/${post.id}/og-image.png`}
+>
   <h1 class="text-3xl font-bold mb-4">{frontmatter.title}</h1>
   <LastUpdatedWarn updatedDate={frontmatter.updatedDate ?? frontmatter.publishedDate} client:load />
   <PostMeta frontmatter={frontmatter} mode="postPage" />

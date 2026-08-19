@@ -3,7 +3,7 @@ type Props = {
   title?: string;
   useDefaultTitle?: boolean;
   description?: string;
-  ogImage?: string;
+  ogImagePath?: string;
   blockIndexing?: boolean;
 };
 import { ClientRouter } from 'astro:transitions';
@@ -12,7 +12,7 @@ import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
 import '@styles/global.css';
 
-const { title, useDefaultTitle = title !== undefined, description, ogImage, blockIndexing } = Astro.props;
+const { title, useDefaultTitle = title !== undefined, description, ogImagePath, blockIndexing } = Astro.props;
 const titleTemplate =
   title === undefined || Astro.url.pathname === '/' ? siteConfig.siteName : `${title} | ${siteConfig.siteName}`;
 ---
@@ -35,7 +35,7 @@ const titleTemplate =
     <meta property="og:title" content={titleTemplate} />
     <meta property="og:type" content={Astro.url.pathname === '/' ? 'website' : 'article'} />
     <meta property="og:url" content={Astro.url.href} />
-    <meta property="og:image" content={ogImage || siteConfig.defaultOgImage} />
+    <meta property="og:image" content={siteConfig.baseUrl + (ogImagePath || siteConfig.defaultOgImagePath)} />
     <meta property="og:description" content={description || siteConfig.defaultDescription} />
     {
       siteConfig.xAccount && (

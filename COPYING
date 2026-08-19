@@ -6,22 +6,32 @@ Unless otherwise stated, all source code in this repository is
 licensed under the GNU Affero General Public License v3.0 only.
 
 The following works are excluded from the above license and remain
-all Rights Reserved:
+All Rights Reserved:
 
 - Personal profile content and other original written content
 - Personal photographs and illustrations
 - Logos, icons, and other branding materials
 - Files under:
   - `src/assets/`
-  - `src/blog/`
   - `public/`
   - `resources/`
-- Other non-code assets explicitly marked as "All Rights Reserved"
+- Other works explicitly marked as "All Rights Reserved"
 
-These works may not be reproduced, modified, distributed, used to train
-generative AI models, including base models and additional training
-models such as LoRA, or provided as input to or referenced by generative
-AI systems, without permission from the respective copyright holder.
+The works listed above may not be reproduced, modified,
+distributed, or otherwise used without permission from the
+respective copyright holder, except where such use is both
+permitted under applicable laws and regulations and not
+prohibited by the AI-related usage restrictions set forth below.
 
-Third-party components and assets are subject to their respective
-licenses.
+No permission is granted for the use of these works for training,
+fine-tuning, or otherwise developing generative AI or machine
+learning models, including base models and additional training
+methods such as LoRA. No permission is granted for providing these
+works as input to, or otherwise referencing these works from,
+generative AI systems.
+
+Third-party components and assets are not covered by the above terms
+and remain subject to their respective licenses and applicable terms.
+
+Where a file or work is explicitly accompanied by a different license
+or usage notice, that license or notice takes precedence for that work.

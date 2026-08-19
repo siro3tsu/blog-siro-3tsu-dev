@@ -6,19 +6,33 @@ import { defineCollection } from 'astro:content';
 import { z } from 'astro/zod';
 // 各コレクションの loader と schema を定義する
 const blog = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/blog' }),
+  loader: glob({
+    pattern: '**/README.mdx',
+    base: './posts',
+    generateId({ entry, base, data }) {
+      // yyyy-mm-dd-slug形式のフォルダ名からregexで日付とslugを抽出する
+      const match = entry
+        .split('/')
+        .pop()
+        ?.match(/^(\d{4}-\d{2}-\d{2})-(.+)$/);
+      if (match) {
+        const slug = match[2];
+        // 日付が無効でないなら日付をpublishedDateとして設定する
+        const date = new Date(match[1]);
+        if (!isNaN(date.getTime())) {
+          data.publishedDate = date;
+        }
+        return slug;
+      } else {
+        throw new Error(`Invalid entry format: ${entry}`);
+      }
+    },
+  }),
   schema: z.object({
     title: z.string(),
     publishedDate: z.date(),
     updatedDate: z.optional(z.date()),
     author: z.string(),
-    image: z.optional(
-      z.object({
-        url: z.string(),
-        alt: z.string(),
-      }),
-    ),
-    category: z.string(),
     tags: z.array(z.string()),
   }),
 });
