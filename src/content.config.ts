@@ -11,10 +11,7 @@ const blog = defineCollection({
     base: './posts',
     generateId({ entry, base, data }) {
       // yyyy-mm-dd-slug形式のフォルダ名からregexで日付とslugを抽出する
-      const match = entry
-        .split('/')
-        .pop()
-        ?.match(/^(\d{4}-\d{2}-\d{2})-(.+)$/);
+      const match = entry.match(/^(\d{4}-\d{2}-\d{2})-(.+)\/README\.mdx$/);
       if (match) {
         const slug = match[2];
         // 日付が無効でないなら日付をpublishedDateとして設定する
