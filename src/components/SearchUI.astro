@@ -1,0 +1,48 @@
+---
+let bundlePath = '/pagefind/';
+if (import.meta.env.DEV) {
+  bundlePath = '/dist/client/pagefind/';
+}
+import '@pagefind/component-ui/css';
+---
+
+<div class="relative hover:[&>div]:opacity-100">
+  <button popovertarget="search-dialog" class="p-1 text-2xl sm:align-middle cursor-pointer"
+    ><span class="icon-[mdi--search] w-6 h-6 block"></span></button
+  >
+  <div
+    class="absolute opacity-0 transition-opacity top-10 -right-2 w-12 text-center bg-default-bg/70 dark:bg-default-bg-dark/70 backdrop-blur-lg text-gray-900 dark:text-gray-100 border border-gray-500 rounded-md shadow-lg p-1 z-10 pointer-events-none"
+  >
+    検索
+  </div>
+</div>
+<dialog
+  id="search-dialog"
+  popover
+  class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-2xl h-[80vh] max-h-(--container-4xl) bg-default-bg/70 dark:bg-default-bg-dark/70 backdrop-blur-lg text-gray-900 dark:text-gray-100 border border-gray-500 rounded-md shadow-lg z-20 backdrop:bg-black/50 dark:backdrop:bg-white/50 backdrop:backdrop-blur-sm open:pointer-events-auto"
+>
+  <div class="flex flex-col gap-2 p-4 h-full">
+    <div class="flex flex-col gap-1">
+      <pagefind-input></pagefind-input>
+      <pagefind-summary></pagefind-summary>
+    </div>
+    <div class="flex-1 overflow-y-scroll p-1">
+      <pagefind-results></pagefind-results>
+    </div>
+    <div>
+      <pagefind-keyboard-hints></pagefind-keyboard-hints>
+    </div>
+    <pagefind-config bundle-path={bundlePath}></pagefind-config>
+  </div>
+</dialog>
+<script>
+  import '@pagefind/component-ui';
+  import { getInstanceManager } from '@pagefind/component-ui';
+
+  // Get the instance (creates one if it doesn't exist)
+  const manager = getInstanceManager();
+  const instance = manager.getInstance('default');
+  instance.setTranslations({
+    keyboard_clear: '閉じる',
+  });
+</script>

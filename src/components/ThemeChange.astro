@@ -6,7 +6,7 @@ import { siteConfig } from '@site.config';
   <div class="relative hover:[&>div]:opacity-100">
     <button
       popovertarget="theme-popover"
-      class="[anchor-name:--theme-popover] p-1 sm:align-middle"
+      class="[anchor-name:--theme-popover] p-1 sm:align-middle cursor-pointer"
       aria-label="テーマ変更"
     >
       <div class="text-2xl w-6 h-6">
@@ -25,7 +25,7 @@ import { siteConfig } from '@site.config';
   <div
     id="theme-popover"
     popover
-    class="[position-anchor:--theme-popover] [position-area:bottom] mt-1 mr-2 bg-default-bg/70 dark:bg-default-bg-dark/70 backdrop-blur-lg text-gray-900 dark:text-gray-100 border border-gray-500 rounded-md shadow-lg p-1 z-20"
+    class="[position-anchor:--theme-popover] [position-area:bottom] mt-1 mr-2 bg-default-bg/70 dark:bg-default-bg-dark/70 backdrop-blur-lg text-gray-900 dark:text-gray-100 border border-gray-500 rounded-md shadow-lg p-1 z-20 open:pointer-events-auto"
   >
     <ul class="flex flex-col gap-2">
       <li>
@@ -59,9 +59,9 @@ import { siteConfig } from '@site.config';
     root.classList.add('[&_*]:!transition-none');
     if (theme === 'system') theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     if (theme === 'light') {
-      document.documentElement.setAttribute('data-theme', 'light');
+      document.documentElement.setAttribute('data-pf-theme', 'light');
     } else if (theme === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
+      document.documentElement.setAttribute('data-pf-theme', 'dark');
     }
     changePostComponentsTheme(theme);
     window.requestAnimationFrame(() => {
@@ -76,7 +76,7 @@ import { siteConfig } from '@site.config';
         el.parentNode.insertBefore(el, el.parentNode.querySelector('img').nextSibling);
       });
       document.querySelectorAll('.expressive-code').forEach((el) => {
-        el.setAttribute('data-theme', expressiveCodeTheme[1]);
+        el.setAttribute('data-pf-theme', expressiveCodeTheme[1]);
       });
     } else if (theme === 'dark') {
       // mermaidのdarkモード時のsourceをimgの前に持ってくる
@@ -84,7 +84,7 @@ import { siteConfig } from '@site.config';
         el.parentNode.insertBefore(el, el.parentNode.querySelector('img'));
       });
       document.querySelectorAll('.expressive-code').forEach((el) => {
-        el.setAttribute('data-theme', expressiveCodeTheme[0]);
+        el.setAttribute('data-pf-theme', expressiveCodeTheme[0]);
       });
     }
   };

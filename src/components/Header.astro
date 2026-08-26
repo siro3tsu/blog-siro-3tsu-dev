@@ -1,6 +1,7 @@
 ---
 import Hamburger from '@components/Hamburger.astro';
 import ThemeChange from '@components/ThemeChange.astro';
+import SearchUI from '@components/SearchUI.astro';
 import { siteConfig, headerItems } from '@site.config';
 ---
 
@@ -8,6 +9,7 @@ import { siteConfig, headerItems } from '@site.config';
   <div class="flex flex-row justify-between items-center sm:contents">
     <a href="/" class="block text-2xl font-bold sm:order-1 sm:mr-auto">{siteConfig.siteName}</a>
     <div class="flex flex-row items-center gap-2 sm:order-3">
+      <SearchUI />
       <ThemeChange />
       <Hamburger />
     </div>
