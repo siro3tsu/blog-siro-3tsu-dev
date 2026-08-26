@@ -54,13 +54,21 @@ const updatedDate =
     {
       frontmatter.tags.map((tag: string) => (
         <li>
-          <a
-            href={`/tags/${convertToSlug(tag)}/`}
-            class={'inline-flex items-center gap-1 chip text-sm' + (mode === 'postCard' ? ' relative z-10' : '')}
-          >
-            <span class="icon-[mdi--tag] text-sm" />
-            {tag}
-          </a>
+          {mode === 'postCard' ? (
+            <a href={`/tags/${convertToSlug(tag)}/`} class="inline-flex items-center gap-1 chip text-sm relative z-10 ">
+              <span class="icon-[mdi--tag] text-sm" />
+              <span class="max-w-60 overflow-hidden whitespace-nowrap text-ellipsis">{tag}</span>
+            </a>
+          ) : (
+            <a
+              href={`/tags/${convertToSlug(tag)}/`}
+              class="inline-flex items-center gap-1 chip text-sm"
+              data-pagefind-filter="tags"
+            >
+              <span class="icon-[mdi--tag] text-sm" />
+              <span class="max-w-60 overflow-hidden whitespace-nowrap text-ellipsis">{tag}</span>
+            </a>
+          )}
         </li>
       ))
     }
