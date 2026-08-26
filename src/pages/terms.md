@@ -1,7 +1,7 @@
 ---
 layout: ../layouts/LegalPage.astro
 title: 利用規約
-description: しろみつ's Siteの利用規約です。
+description: しろみつ's Blogの利用規約です。
 ---
 
 この利用規約（以下、「本規約」といいます。）は、しろみつ（以下、「当方」といいます。）がしろみつ's Blog(blog.siro.3tsu.dev)（以下、「当サイト」といいます。）の利用条件を定めるものです。  
