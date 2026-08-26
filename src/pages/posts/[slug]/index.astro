@@ -63,7 +63,7 @@ headings.forEach((heading) => {
   {
     headingsList.length > 0 && (
       <div class="border rounded mt-4 px-4 py-2 w-fit toc-container">
-        <h2 class="text-lg font-semibold flex flex-row items-center gap-1">
+        <h2 class="text-lg font-semibold flex flex-row items-center gap-1 cursor-pointer">
           目次
           <span class="icon-[mdi--chevron-down] in-open:icon-[mdi--chevron-up] text-2xl" />
         </h2>
@@ -105,6 +105,6 @@ headings.forEach((heading) => {
     @apply prose-h3:my-2 prose-h3:text-xl prose-h3:font-medium prose-headings:relative prose-headings:hover:[&>a]:opacity-100 prose-headings:max-[920px]:ml-3;
     @apply prose-code:bg-primary-200 prose-code:dark:bg-primary-900 prose-code:p-1 prose-code:mx-1 prose-code:rounded prose-code:not-data-copy:before:content-none prose-code:after:content-none;
     @apply prose-code:data-copy:cursor-pointer prose-code:data-copy:before:icon-[mdi--content-copy];
-    @apply prose-code:data-copy:before:mr-1 prose-code:data-copy:before:text-lg prose-code:data-copy:before:align-middle prose-code:data-copy:hover:bg-primary-300 prose-code:data-copy:hover:dark:bg-primary-700;
+    @apply prose-code:data-copy:before:mr-1 prose-code:data-copy:before:text-lg prose-code:data-copy:before:align-text-bottom prose-code:data-copy:hover:bg-primary-300 prose-code:data-copy:hover:dark:bg-primary-700;
   }
 </style>
