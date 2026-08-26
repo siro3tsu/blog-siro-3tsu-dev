@@ -2,14 +2,15 @@
 
 ---
 
-<button class="hamburger sm:hidden p-1" aria-label="ナビゲーションメニュー">
+<button class="hamburger sm:hidden p-1 cursor-pointer" aria-label="ナビゲーションメニュー">
   <div class="w-6 h-6 flex flex-col gap-2">
     <span
-      class="block w-full h-0.5 bg-gray-900 dark:bg-gray-100 open:rotate-45 open:translate-y-2.5 transition-transform duration-300"
+      class="block w-full h-0.5 bg-gray-900 dark:bg-gray-100 in-open:rotate-45 in-open:translate-y-2.5 transition-transform duration-300"
     ></span>
-    <span class="block w-full h-0.5 bg-gray-900 dark:bg-gray-100 open:opacity-0 transition-opacity duration-300"></span>
+    <span class="block w-full h-0.5 bg-gray-900 dark:bg-gray-100 in-open:opacity-0 transition-opacity duration-300"
+    ></span>
     <span
-      class="block w-full h-0.5 bg-gray-900 dark:bg-gray-100 open:-rotate-45 open:-translate-y-2.5 transition-transform duration-300"
+      class="block w-full h-0.5 bg-gray-900 dark:bg-gray-100 in-open:-rotate-45 in-open:-translate-y-2.5 transition-transform duration-300"
     ></span>
   </div>
 </button>

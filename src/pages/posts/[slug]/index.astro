@@ -62,13 +62,18 @@ headings.forEach((heading) => {
   <PostMeta frontmatter={frontmatter} mode="postPage" />
   {
     headingsList.length > 0 && (
-      <div class="border rounded mt-4 px-4 py-2 w-fit">
-        <h2 class="text-lg font-semibold">目次</h2>
-        <ol class="toc flex flex-col gap-2 list-decimal list-inside">
-          {headingsList.map((heading) => (
-            <TocListItem heading={heading} />
-          ))}
-        </ol>
+      <div class="border rounded mt-4 px-4 py-2 w-fit toc-container">
+        <h2 class="text-lg font-semibold flex flex-row items-center gap-1">
+          目次
+          <span class="icon-[mdi--chevron-down] in-open:icon-[mdi--chevron-up] text-2xl" />
+        </h2>
+        <div class="overflow-hidden max-h-0 in-open:max-h-[9999px] transition-[max-height] duration-300">
+          <ol class="pt-2 toc flex flex-col gap-2 list-decimal list-inside">
+            {headingsList.map((heading) => (
+              <TocListItem heading={heading} />
+            ))}
+          </ol>
+        </div>
       </div>
     )
   }
@@ -76,6 +81,19 @@ headings.forEach((heading) => {
     <Content />
   </article>
   <CopyScript />
+  <script is:inline>
+    document.addEventListener('astro:page-load', () => {
+      const tocContainer = document.querySelector('.toc-container');
+      if (tocContainer) {
+        const tocHeader = tocContainer.querySelector('h2');
+        tocHeader.addEventListener('click', () => {
+          tocContainer.hasAttribute('open')
+            ? tocContainer.removeAttribute('open')
+            : tocContainer.setAttribute('open', '');
+        });
+      }
+    });
+  </script>
 </Layout>
 <style>
   @reference "@styles/global.css";

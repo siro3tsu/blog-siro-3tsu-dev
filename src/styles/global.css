@@ -2,12 +2,14 @@
 @plugin '@iconify/tailwind4';
 @plugin "@tailwindcss/typography";
 
-@custom-variant dark (&:where([data-pf-theme=dark], [data-pf-theme=dark] *));
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 @custom-variant touch (@media (hover: none) and (pointer: coarse));
 
 @theme {
   --color-default-text: var(--color-gray-900);
+  --color-secondary-text: var(--color-gray-600);
   --color-default-text-dark: var(--color-gray-100);
+  --color-secondary-text-dark: var(--color-gray-400);
   --color-default-bg: var(--color-white);
   --color-default-bg-dark: var(--color-slate-950);
   --color-primary-950: var(--color-indigo-950);
@@ -26,7 +28,20 @@
 
 :root {
   @apply max-w-4xl w-full mx-auto p-4 bg-default-bg dark:bg-default-bg-dark text-default-text dark:text-default-text-dark font-sans transition-bg has-[[popover]:popover-open]:pointer-events-none;
-  --pf-outline-focus: var(--color-primary-500);
+  --pf-text: var(--color-default-text);
+  --pf-text-secondary: var(--color-secondary-text);
+  --pf-text-muted: var(--color-secondary-text);
+  --pf-mark: var(--color-primary-600);
+  --pf-background: var(--color-default-bg);
+  --pf-outline-focus: var(--color-primary-600);
+}
+:root[data-theme='dark'] {
+  --pf-text: var(--color-default-text-dark);
+  --pf-text-secondary: var(--color-secondary-text-dark);
+  --pf-text-muted: var(--color-secondary-text-dark);
+  --pf-mark: var(--color-primary-400);
+  --pf-background: var(--color-default-bg-dark);
+  --pf-outline-focus: var(--color-primary-400);
 }
 
 @utility chip {

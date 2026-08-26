@@ -14,7 +14,7 @@ import { siteConfig, headerItems } from '@site.config';
       <Hamburger />
     </div>
   </div>
-  <nav class="sm:order-2 overflow-hidden max-sm:max-h-0 max-sm:open:max-h-96 transition-[max-height] duration-300">
+  <nav class="sm:order-2 overflow-hidden max-sm:max-h-0 max-sm:in-open:max-h-96 transition-[max-height] duration-300">
     <ul class="max-sm:p-4 flex flex-row gap-4 max-sm:border-y max-sm:border-gray-500">
       {
         headerItems.map((item) => (
@@ -28,13 +28,9 @@ import { siteConfig, headerItems } from '@site.config';
   <script is:inline>
     document.addEventListener('astro:page-load', () => {
       const hamburger = document.querySelector('.hamburger');
-      const navMenu = document.querySelector('nav');
-      const lines = hamburger.querySelectorAll('span');
+      const header = document.querySelector('header');
       hamburger.addEventListener('click', () => {
-        navMenu.getAttribute('open') === null ? navMenu.setAttribute('open', '') : navMenu.removeAttribute('open');
-        lines.forEach((line) => {
-          line.getAttribute('open') === null ? line.setAttribute('open', '') : line.removeAttribute('open');
-        });
+        header.hasAttribute('open') ? header.removeAttribute('open') : header.setAttribute('open', '');
       });
     });
   </script>
