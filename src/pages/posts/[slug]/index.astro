@@ -14,9 +14,9 @@ import type { CollectionEntry } from 'astro:content';
 import Layout from '@layouts/Layout.astro';
 import CopyTexts from '@components/CopyTexts.astro';
 import PostMeta from '@components/PostMeta.astro';
-import LastUpdatedWarn from '@components/LastUpdatedWarn.tsx';
-import TocListItem from '@components/TocListItem.astro';
-import AboutAuthor from '@components/AboutAuthor.astro';
+import LastUpdatedWarn from '@components/blog/LastUpdatedWarn';
+import TocListItem from '@components/blog/TocListItem.astro';
+import AboutAuthor from '@components/blog/AboutAuthor.astro';
 import { getDescription } from '@core/posts';
 
 export async function getStaticPaths() {
