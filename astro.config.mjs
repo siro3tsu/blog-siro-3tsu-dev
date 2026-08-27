@@ -13,6 +13,7 @@ import rehypeMermaid from 'rehype-mermaid';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutoLinkHeadings from 'rehype-autolink-headings';
 import expressiveCode from 'astro-expressive-code';
+import rehypeExternalLinks from 'rehype-external-links';
 
 // https://astro.build/config
 export default defineConfig({
@@ -69,6 +70,13 @@ export default defineConfig({
             dark: {
               theme: 'dark', // ダーク用のmermaidテーマ
             },
+          },
+        ],
+        [
+          rehypeExternalLinks,
+          {
+            target: '_blank',
+            rel: ['noopener', 'noreferrer'],
           },
         ],
       ],
