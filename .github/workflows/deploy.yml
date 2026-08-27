@@ -34,6 +34,7 @@ jobs:
       - name: Save Cache Playwright Browser
         uses: actions/cache/save@v6
         id: save-cache-playwright-chromium
+        if: ${{ steps.restore-cache-playwright-chromium.outputs.cache-hit != 'true' }}
         with:
           path: /home/runner/.cache/ms-playwright
           key: ${{ steps.restore-cache-playwright-chromium.outputs.cache-primary-key }}

@@ -5,7 +5,7 @@ import SearchUI from '@components/SearchUI.astro';
 import { siteConfig, headerItems } from '@site.config';
 ---
 
-<header class="pb-4 flex flex-col sm:flex-row sm:items-center sm:gap-2">
+<header class="max-w-4xl w-full mx-auto p-4 flex flex-col sm:flex-row sm:items-center sm:gap-2">
   <div class="flex flex-row justify-between items-center sm:contents">
     <a href="/" class="block text-2xl font-bold sm:order-1 sm:mr-auto">{siteConfig.siteName}</a>
     <div class="flex flex-row items-center gap-2 sm:order-3">
@@ -14,7 +14,9 @@ import { siteConfig, headerItems } from '@site.config';
       <Hamburger />
     </div>
   </div>
-  <div class="sm:order-2 overflow-hidden max-sm:max-h-0 max-sm:in-open:max-h-96 transition-[max-height] duration-300">
+  <div
+    class="sm:order-2 overflow-hidden max-sm:max-h-0 max-sm:in-open:max-h-96 transition-[max-height] duration-300 sm:pb-1"
+  >
     <nav class="max-sm:mt-2">
       <ul class="max-sm:p-4 flex flex-row gap-4 max-sm:border-y max-sm:border-gray-500">
         {

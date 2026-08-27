@@ -51,9 +51,9 @@ const titleTemplate =
     <meta name="robots" content={`noimageai, noai${blockIndexing ? ', noindex' : ''}`} />
     <ClientRouter />
   </head>
-  <body>
+  <body class="has-[dialog:open]:overflow-hidden">
     <Header />
-    <main>
+    <main class="max-w-4xl w-full mx-auto px-4">
       {useDefaultTitle && Astro.url.pathname !== '/' && <h1 class="text-3xl font-bold mb-2">{title}</h1>}
       <slot />
     </main>

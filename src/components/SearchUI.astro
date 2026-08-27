@@ -7,7 +7,7 @@ import '@pagefind/component-ui/css';
 ---
 
 <div class="relative hover:[&>div]:opacity-100">
-  <button popovertarget="search-dialog" class="p-1 text-2xl align-middle cursor-pointer"
+  <button id="search-button" class="p-1 text-2xl align-middle cursor-pointer"
     ><span class="icon-[mdi--search] w-6 h-6 block"></span></button
   >
   <div
@@ -18,8 +18,7 @@ import '@pagefind/component-ui/css';
 </div>
 <dialog
   id="search-dialog"
-  popover
-  class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-2xl h-[80vh] max-h-(--container-4xl) bg-default-bg/70 dark:bg-default-bg-dark/70 backdrop-blur-sm text-gray-900 dark:text-gray-100 border border-gray-500 rounded-md shadow-lg z-20 backdrop:bg-black/10 dark:backdrop:bg-white/10 backdrop:backdrop-blur-xs open:pointer-events-auto"
+  class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-2xl h-[80vh] max-h-(--container-4xl) bg-default-bg/70 dark:bg-default-bg-dark/70 backdrop-blur-sm text-gray-900 dark:text-gray-100 border border-gray-500 rounded-md shadow-lg backdrop:bg-black/10 dark:backdrop:bg-white/10 backdrop:backdrop-blur-xs"
 >
   <div class="flex flex-col gap-2 p-4 h-full">
     <div class="flex flex-col gap-1">
@@ -45,7 +44,18 @@ import '@pagefind/component-ui/css';
     }
   </style>
 </dialog>
-
+<script is:inline>
+  const searchButton = document.querySelector('#search-button');
+  const searchDialog = document.querySelector('#search-dialog');
+  searchButton.addEventListener('click', () => {
+    searchDialog.showModal();
+  });
+  searchDialog.addEventListener('click', (e) => {
+    if (e.target === searchDialog) {
+      searchDialog.close();
+    }
+  });
+</script>
 <script>
   import '@pagefind/component-ui';
   import { getInstanceManager } from '@pagefind/component-ui';
