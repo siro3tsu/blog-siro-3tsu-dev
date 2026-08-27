@@ -98,22 +98,30 @@ import { siteConfig } from '@site.config';
     deviceType = 'pc';
   }
   changeTheme(localStorage.getItem('theme') || 'system');
-  document.addEventListener('astro:page-load', () => {
-    const themeButton = document.querySelector('#theme-button');
-    const themeDialog = document.querySelector('#theme-dialog');
-    themeButton.addEventListener('click', () => {
-      themeDialog.showModal();
-    });
-    themeDialog.addEventListener('click', (e) => {
-      if (e.target === themeDialog) {
-        themeDialog.close();
-      }
-    });
-    changePostComponentsTheme(localStorage.getItem('theme') || 'system');
-  });
+  document.addEventListener('astro:page-load', () =>
+    changePostComponentsTheme(localStorage.getItem('theme') || 'system'),
+  );
   document.addEventListener('astro:after-swap', () => changeTheme(localStorage.getItem('theme') || 'system'));
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'theme') {
+      themeChangeComponent
+        .querySelectorAll('button[aria-current], [class^="mode-"][aria-current]')
+        .forEach((el) => el.removeAttribute('aria-current'));
+      changeTheme(e.newValue || 'system');
+      changePostComponentsTheme(e.newValue || 'system');
+    }
+  });
   const themeDialog = document.querySelector('#theme-dialog');
+  const themeButton = document.querySelector('#theme-button');
   const themeButtons = themeDialog.querySelectorAll('button');
+  themeButton.addEventListener('click', () => {
+    themeDialog.showModal();
+  });
+  themeDialog.addEventListener('click', (e) => {
+    if (e.target === themeDialog) {
+      themeDialog.close();
+    }
+  });
   themeButtons.forEach((button) => {
     button.addEventListener('click', () => {
       const currentTheme = button.value;
