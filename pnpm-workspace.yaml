@@ -1,0 +1,10 @@
+minimumReleaseAge: 1440
+saveExact: true
+strictDepBuilds: true
+trustPolicy: no-downgrade
+trustPolicyIgnoreAfter: 10080
+allowBuilds:
+  esbuild: true
+  workerd: true
+overrides:
+  uuid@<10.0.0: ^14.0.2

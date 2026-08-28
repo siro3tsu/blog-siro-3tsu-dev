@@ -29,15 +29,14 @@ npm run dev
 
 ### コマンド類
 
-| コマンド            | Action                                                                      |
-| ------------------- | --------------------------------------------------------------------------- |
-| `npm run dev`       | 開発サーバーを`localhost:4321`で起動します                                  |
-| `npm run build`     | `./dist/`へビルドします                                                     |
-| `npm run preview`   | `./dist/`へビルドを行い、プレビューサーバーを`localhost:4321`で起動します。 |
-| `npm run lint`      | ESLint による静的解析                                                       |
-| `npm run lint:fix`  | ESLint による自動修正                                                       |
-| `npm run format`    | Prettier によるフォーマット                                                 |
-| `npm run typecheck` | TypeScriptの型チェック                                                      |
+| コマンド        | Action                                                                      |
+| --------------- | --------------------------------------------------------------------------- |
+| `pnpm dev`      | 開発サーバーを`localhost:4321`で起動します                                  |
+| `pnpm build`    | `./dist/`へビルドします                                                     |
+| `pnpm preview`  | `./dist/`へビルドを行い、プレビューサーバーを`localhost:4321`で起動します。 |
+| `pnpm lint`     | ESLint による静的解析                                                       |
+| `pnpm lint:fix` | ESLint による自動修正                                                       |
+| `pnpm format`   | Prettier によるフォーマット                                                 |
 
 ## プロジェクト構造(概要)
 
