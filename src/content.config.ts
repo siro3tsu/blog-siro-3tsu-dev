@@ -9,19 +9,19 @@ const blog = defineCollection({
   loader: glob({
     pattern: '**/README.mdx',
     base: './posts',
-    generateId({ entry, base, data }) {
+    generateId(options) {
       // yyyy-mm-dd-slug形式のフォルダ名からregexで日付とslugを抽出する
-      const match = entry.match(/^(\d{4}-\d{2}-\d{2})-(.+)\/README\.mdx$/);
+      const match = options.entry.match(/^(\d{4}-\d{2}-\d{2})-(.+)\/README\.mdx$/);
       if (match) {
         const slug = match[2];
         // 日付が無効でないなら日付をpublishedDateとして設定する
         const date = new Date(match[1]);
         if (!isNaN(date.getTime())) {
-          data.publishedDate = date;
+          options.data.publishedDate = date;
         }
         return slug;
       } else {
-        throw new Error(`Invalid entry format: ${entry}`);
+        throw new Error(`Invalid entry format: ${options.entry}`);
       }
     },
   }),

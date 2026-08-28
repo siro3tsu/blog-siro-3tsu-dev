@@ -1,43 +1,62 @@
-# Astro Starter Kit: Minimal
+# blog-siro-3tsu-dev
 
-```sh
-npm create astro@latest -- --template minimal
+しろみつの個人ブログのソースコードを置いているリポジトリです。  
+SSGであるAstro.jsをベースに、TailwindCSSでスタイル付け、MDXで記事執筆を行い、最終的にCloudflare Workersへデプロイされます。
+
+## 主要な技術構成
+
+- Astro.js
+- Tailwindcss
+- TypeScript
+- MDX
+- ESLint
+- Prettier
+- Cloudflare Workers
+- GitHub Actions
+
+## セットアップ
+
+当プロジェクトはWindows環境においてNVM for Windows経由でインストールされたNode.js v26.7.0で開発されています。
+
+```bash
+# 依存関係のインストール
+npm install
+
+# 開発サーバーの起動 | localhost:4321 で起動します。
+# 万一ポートが使用済みの場合は一時的にポート番号が変更されて起動します。
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+### コマンド類
 
-## 🚀 Project Structure
+| コマンド            | Action                                                                      |
+| ------------------- | --------------------------------------------------------------------------- |
+| `npm run dev`       | 開発サーバーを`localhost:4321`で起動します                                  |
+| `npm run build`     | `./dist/`へビルドします                                                     |
+| `npm run preview`   | `./dist/`へビルドを行い、プレビューサーバーを`localhost:4321`で起動します。 |
+| `npm run lint`      | ESLint による静的解析                                                       |
+| `npm run lint:fix`  | ESLint による自動修正                                                       |
+| `npm run format`    | Prettier によるフォーマット                                                 |
+| `npm run typecheck` | TypeScriptの型チェック                                                      |
 
-Inside of your Astro project, you'll see the following folders and files:
+## プロジェクト構造(概要)
 
 ```text
 /
-├── public/
+├── posts/                    # Git Submodules を利用して配置されたブログ記事
+├── public/                   # favicon などの静的アセット（Astro.js の処理対象外）
 ├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+│   ├── assets/img/           # Astro.js によって処理される画像アセット
+│   ├── components/           # 再使用可能な Astro.js/React コンポーネント
+│   │   ├── blog/             # ブログ記事で主に使用するコンポーネント
+│   │   └── header/           # ヘッダーで主に使用するコンポーネント
+│   ├── core/                 # 再使用可能なスクリプト群
+│   ├── layouts/              # レイアウト
+│   ├── pages/                # ルーティング対象ディレクトリ
+│   ├── styles/               # Tailwindcss スタイルシート
+│   ├── content.config.ts     # Astro.js のコンテンツコレクションの設定ファイル
+│   ├── site.config.ts        # サイトの設定定数定義
+├── astro.config.mjs          # Astro.js の設定
+├── package.json              # スクリプト及び依存関係
+└── wrangler.jsonc            # Cloudflare Workers の設定
 ```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

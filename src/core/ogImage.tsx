@@ -132,7 +132,7 @@ export const generateOgpImage = async (title: string, publishedDate: string, upd
           weight: 400,
         },
       ],
-    },
+    }
   );
 
   const resvg = new Resvg(svg, {

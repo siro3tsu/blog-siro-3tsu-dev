@@ -32,7 +32,7 @@ const { Content, headings } = await render(post);
 
 const frontmatter = post.data;
 const headingsList: HeadingListItem[] = [];
-const stack: any[] = [];
+const stack: HeadingListItem[] = [];
 headings.forEach((heading) => {
   const item = {
     slug: heading.slug,
@@ -89,9 +89,11 @@ headings.forEach((heading) => {
       if (tocContainer) {
         const tocHeader = tocContainer.querySelector('h2');
         tocHeader.addEventListener('click', () => {
-          tocContainer.hasAttribute('open')
-            ? tocContainer.removeAttribute('open')
-            : tocContainer.setAttribute('open', '');
+          if (tocContainer.hasAttribute('open')) {
+            tocContainer.removeAttribute('open');
+          } else {
+            tocContainer.setAttribute('open', '');
+          }
         });
       }
     });

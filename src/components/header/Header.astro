@@ -34,7 +34,11 @@ import { siteConfig, headerItems } from '@site.config';
       const hamburger = document.querySelector('.hamburger');
       const header = document.querySelector('header');
       hamburger.addEventListener('click', () => {
-        header.hasAttribute('open') ? header.removeAttribute('open') : header.setAttribute('open', '');
+        if (header.hasAttribute('open')) {
+          header.removeAttribute('open');
+        } else {
+          header.setAttribute('open', '');
+        }
       });
     });
   </script>
