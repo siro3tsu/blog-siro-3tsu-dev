@@ -6,44 +6,35 @@ const { authorId } = Astro.props;
 const author = authorConfig.find((item) => item.id === authorId)!;
 ---
 
-<div class="flex flex-col gap-4 border rounded-md p-4 mt-4">
-  <h2 class="text-xl font-bold">著者について</h2>
-  <div class="flex flex-row gap-2 items-center">
-    <Image
-      src={author.avatar}
-      alt={`${author.name}のアバター`}
-      width="128"
-      height="128"
-      class="rounded-full w-12 h-12"
-    />
-    <p class="text-lg font-bold">{author.name}</p>
-  </div>
-  <p>{author.bio}</p>
-  <ul class="flex flex-col gap-2 sm:grid sm:grid-cols-2">
-    {
-      author.socialLinks.map((link) => (
-        <li class="flex flex-row gap-4 items-center">
-          <span class="w-20 inline-flex flex-row items-center gap-1">
-            <span class={`${link.iconClass} text-xl`} />
-            {link.name}
-          </span>
-          {link.url ? (
-            /https?:\/\//.test(link.url) ? (
-              <a href={link.url} target="_blank" rel="noopener noreferrer" class="chip">
-                {link.userId}
-              </a>
+<div class="flex flex-row gap-2 items-center border rounded-md p-4 mt-4">
+  <Image src={author.avatar} alt={`${author.name}のアバター`} width="128" height="128" class="rounded-full w-20 h-20" />
+  <div class="flex flex-col gap-1">
+    <p class="text-xl font-bold">{author.name}</p>
+    <code>@{author.id}</code>
+    <ul class="flex flex-row gap-2">
+      {
+        author.socialLinks.map((link) => (
+          <li>
+            {link.url ? (
+              /https?:\/\//.test(link.url) ? (
+                <a href={link.url} target="_blank" rel="noopener noreferrer">
+                  <span class={`${link.iconClass} text-xl`} />
+                </a>
+              ) : (
+                <a href={link.url}>
+                  <span class={`${link.iconClass} text-xl`} />
+                </a>
+              )
             ) : (
-              <a href={link.url} class="chip">
-                {link.userId}
-              </a>
-            )
-          ) : (
-            <span class="chip max-w-38 overflow-hidden text-ellipsis" data-copy={link.userId}>
-              {link.userId}
-            </span>
-          )}
-        </li>
-      ))
-    }
-  </ul>
+              <span
+                class={`${link.iconClass} text-xl cursor-pointer`}
+                data-copy={link.userId}
+                data-copy-custom-msg="IDをコピーしました"
+              />
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 </div>

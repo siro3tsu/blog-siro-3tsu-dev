@@ -38,14 +38,12 @@ export const headerItems: {
 export const authorConfig: {
   id: string;
   name: string;
-  bio: string;
   avatar: ImageMetadata;
   socialLinks: { name: string; userId: string; url?: string; iconClass: string }[];
 }[] = [
   {
     id: 'siro3tsu',
     name: 'しろみつ',
-    bio: 'プログラミングが趣味の日本の高校生です。',
     avatar: siro3tsuAvatar,
     socialLinks: [
       {
@@ -80,7 +78,7 @@ export const authorConfig: {
         name: 'Email',
         userId: 'Email Page',
         url: 'https://siro.3tsu.dev/email/',
-        iconClass: 'icon-[simple-icons--tuta]',
+        iconClass: 'icon-[mdi--email]',
       },
     ],
   },

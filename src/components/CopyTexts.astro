@@ -2,11 +2,6 @@
 
 ---
 
-<div
-  class="copy-notification absolute opacity-0 transition-opacity bg-green-500/20 backdrop-blur-sm text-gray-900 dark:text-gray-100 border border-green-700 dark:border-green-300 rounded-md shadow-lg p-1 z-10 hidden flex-row items-center gap-2 pointer-events-none"
->
-  <span class="icon-[mdi--check-circle-outline]"></span>コピーしました
-</div>
 <script is:inline>
   document.addEventListener('astro:page-load', () => {
     document.querySelectorAll('[data-copy]').forEach((el) => {
@@ -15,7 +10,10 @@
 
         if (textToCopy && el.getAttribute('data-copied') !== 'true') {
           navigator.clipboard.writeText(textToCopy).then(() => {
-            const copyNotification = document.querySelector('.copy-notification');
+            const copyNotification = document.createElement('DIV');
+            copyNotification.className =
+              'copy-notification absolute opacity-0 transition-opacity bg-green-500/20 backdrop-blur-sm text-gray-900 dark:text-gray-100 border border-green-700 dark:border-green-300 rounded-md shadow-lg p-1 z-10 hidden flex-row items-center gap-2 pointer-events-none';
+            copyNotification.innerHTML = `<span class="icon-[mdi--check-circle-outline]"></span>${el.getAttribute('data-copy-custom-msg') || 'コピーしました'}`;
             const duplicateEl = copyNotification.cloneNode(true);
             document.body.appendChild(duplicateEl);
             duplicateEl.classList.remove('hidden');
