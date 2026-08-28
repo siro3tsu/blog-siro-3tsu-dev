@@ -98,3 +98,28 @@ export const slugConfig: { regex: RegExp; replacement: string }[] = [
     replacement: '-',
   },
 ];
+
+export const sharePostConfig: {
+  sns: { name: string; urlTemplate: string; iconClass: string; bgClass: string; textClass: string }[];
+  clipboard: boolean;
+  webShareApi: boolean;
+} = {
+  sns: [
+    {
+      name: 'X',
+      urlTemplate: 'https://x.com/intent/tweet?text={title}&url={url}',
+      iconClass: 'icon-[simple-icons--x]',
+      bgClass: 'bg-[#000]',
+      textClass: 'text-white',
+    },
+    {
+      name: 'Bluesky',
+      urlTemplate: 'https://bsky.app/intent/compose?text={title-url}',
+      iconClass: 'icon-[simple-icons--bluesky]',
+      bgClass: 'bg-[#037efa]',
+      textClass: 'text-white',
+    },
+  ],
+  clipboard: true,
+  webShareApi: true,
+};

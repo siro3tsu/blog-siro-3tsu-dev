@@ -1,0 +1,60 @@
+---
+import { sharePostConfig } from '@site.config';
+const { title } = Astro.props;
+---
+
+<div class="flex flex-wrap gap-2">
+  {sharePostConfig.sns.map((sns) => (
+    <a
+      href={sns.urlTemplate.replace('{url}', encodeURIComponent(Astro.url.href)).replace('{title}', encodeURIComponent(title)).replace('{title-url}', encodeURIComponent(`${title} ${Astro.url.href}`))}
+      target="_blank"
+      rel="noopener noreferrer"
+      class={`share-btn ${sns.bgClass} ${sns.textClass}`}>
+      <span class={sns.iconClass}></span>{sns.name}で共有
+      </a>
+  ))}
+  {
+    sharePostConfig.clipboard && (
+      <button
+        type="button"
+        class="share-btn"
+        data-copy={Astro.url.href}
+        data-copy-custom-msg="URLをコピーしました">
+        <span class="icon-[mdi--content-copy]"></span>URLをコピー
+        </button>
+    )
+  }
+  {
+    sharePostConfig.webShareApi && (
+      <button
+        type="button"
+        class="share-btn"
+        style="display: none;"
+        id="web-share-button"
+        data-url={Astro.url.href}
+        data-title={title}>
+        <span class="icon-[mdi--share-variant]"></span>その他で共有
+      </button>
+      <script is:inline>
+        const webShareButton = document.querySelector('#web-share-button');
+        const title = webShareButton.getAttribute('data-title');
+        const url = webShareButton.getAttribute('data-url');
+        if (navigator.share) {
+          webShareButton.style.display = '';
+          webShareButton.addEventListener('click', () => {
+            navigator.share({
+              text: title,
+              url: url,
+            });
+          });
+        }
+      </script>
+    )
+  }
+</div>
+<style>
+  @reference '@styles/global.css';
+  .share-btn {
+    @apply flex items-center gap-1 rounded-md px-2 py-0.5 border border-gray-300 dark:border-gray-700 cursor-pointer;
+  }
+</style>
