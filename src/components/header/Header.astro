@@ -5,7 +5,9 @@ import SearchUI from '@components/header/SearchUI.astro';
 import { siteConfig, headerItems } from '@site.config';
 ---
 
-<header class="max-w-4xl w-full mx-auto p-4 flex flex-col sm:flex-row sm:items-center sm:gap-2">
+<header
+  class="sticky top-0 z-10 max-w-4xl w-full mx-auto p-4 flex flex-col sm:flex-row sm:items-center sm:gap-2 transition-[translate,background-color] duration-300 bg-default-bg dark:bg-default-bg-dark"
+>
   <div class="flex flex-row justify-between items-center sm:contents">
     <a href="/" class="block text-2xl font-bold sm:order-1 sm:mr-auto">{siteConfig.siteName}</a>
     <div class="flex flex-row items-center gap-2 sm:order-3">
@@ -15,10 +17,10 @@ import { siteConfig, headerItems } from '@site.config';
     </div>
   </div>
   <div
-    class="sm:order-2 overflow-hidden max-sm:max-h-0 max-sm:in-open:max-h-96 transition-[max-height] duration-300 sm:pb-1"
+    class="sm:order-2 max-sm:fixed top-16 left-0 max-sm:w-dvw max-sm:grid max-sm:grid-rows-[0fr] max-sm:in-open:grid-rows-[1fr] transition-[grid-template-rows] duration-300 sm:pb-1 max-sm:bg-default-bg max-sm:dark:bg-default-bg-dark"
   >
-    <nav class="max-sm:mt-2">
-      <ul class="max-sm:p-4 flex flex-row gap-4 max-sm:border-y max-sm:border-gray-500">
+    <nav class="max-sm:overflow-hidden max-sm:px-4 max-sm:border-b max-sm:border-gray-500">
+      <ul class="max-sm:p-4 flex flex-row gap-4 max-sm:border-t max-sm:border-gray-500">
         {
           headerItems.map((item) => (
             <li>
@@ -40,6 +42,39 @@ import { siteConfig, headerItems } from '@site.config';
           header.setAttribute('open', '');
         }
       });
+      let lastScrollTop = 0;
+      let ticking = false; // 描画待ちフラグ
+
+      window.addEventListener(
+        'scroll',
+        () => {
+          // すでに描画待ち（処理が予約されている）状態なら、何もしない
+          if (!ticking) {
+            // 次の描画タイミングで実行するようブラウザに予約
+            window.requestAnimationFrame(() => {
+              const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+              if (currentScrollTop < 0) {
+                ticking = false;
+                return;
+              }
+
+              if (currentScrollTop > lastScrollTop) {
+                header.classList.add('translate-y-[-100%]');
+                header.removeAttribute('open');
+              } else {
+                header.classList.remove('translate-y-[-100%]');
+              }
+
+              lastScrollTop = currentScrollTop;
+              ticking = false; // 処理が終わったのでフラグを戻す
+            });
+
+            ticking = true; // 予約済みにする
+          }
+        },
+        { passive: true }
+      );
     });
   </script>
 </header>

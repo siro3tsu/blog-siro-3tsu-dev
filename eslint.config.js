@@ -8,7 +8,15 @@ import typescriptEslintParser from '@typescript-eslint/parser';
 import tseslint from 'typescript-eslint';
 
 export default defineConfig([
-  globalIgnores(['node_modules/', 'public/', 'dist/', '.astro/', 'worker-configuration.d.ts']),
+  globalIgnores([
+    '.astro/',
+    '.wrangler/',
+    'dist/',
+    'node_modules/',
+    'public/',
+    'resources/',
+    'worker-configuration.d.ts',
+  ]),
   {
     files: ['**/*.{js,jsx,mjs,cjs,ts,tsx}'],
     extends: [

@@ -17,7 +17,7 @@ import { siteConfig } from '@site.config';
       </div>
     </button>
     <div
-      class="absolute opacity-0 transition-opacity top-10 -right-8 sm:max-[940px]:-right-2 w-24 text-center bg-default-bg/70 dark:bg-default-bg-dark/70 backdrop-blur-xs text-gray-900 dark:text-gray-100 border border-gray-500 rounded-md shadow-lg p-1 z-10 pointer-events-none"
+      class="absolute opacity-0 transition-opacity top-10 -right-8 sm:max-[940px]:-right-2 w-24 text-center bg-default-bg/70 dark:bg-default-bg-dark/70 backdrop-blur-xs text-gray-900 dark:text-gray-100 border border-gray-500 rounded-md shadow-lg p-1 z-20 pointer-events-none"
     >
       テーマ変更
     </div>
@@ -55,7 +55,13 @@ import { siteConfig } from '@site.config';
       .querySelectorAll(`button[value="${theme}"], .mode-${theme}, .mode-${theme}-${deviceType}`)
       .forEach((el) => el.setAttribute('aria-current', 'true'));
     const root = document.documentElement;
-    root.classList.add('[&_*]:!transition-none');
+    const header = document.querySelector('header');
+    root.classList.add('[&_*]:not(header):!transition-none');
+    header.classList.remove('duration-300');
+    window.requestAnimationFrame(() => {
+      root.classList.remove('[&_*]:not(header):!transition-none');
+      header.classList.add('duration-300');
+    });
     if (theme === 'system') theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     if (theme === 'light') {
       document.documentElement.setAttribute('data-theme', 'light');
@@ -65,9 +71,6 @@ import { siteConfig } from '@site.config';
       document.documentElement.setAttribute('data-pf-theme', 'dark');
     }
     changePostComponentsTheme(theme);
-    window.requestAnimationFrame(() => {
-      root.classList.remove('[&_*]:!transition-none');
-    });
   };
   const changePostComponentsTheme = (theme) => {
     if (theme === 'system') theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -99,7 +102,7 @@ import { siteConfig } from '@site.config';
   }
   changeTheme(localStorage.getItem('theme') || 'system');
   document.addEventListener('astro:page-load', () =>
-    changePostComponentsTheme(localStorage.getItem('theme') || 'system'),
+    changePostComponentsTheme(localStorage.getItem('theme') || 'system')
   );
   document.addEventListener('astro:after-swap', () => changeTheme(localStorage.getItem('theme') || 'system'));
   window.addEventListener('storage', (e) => {
