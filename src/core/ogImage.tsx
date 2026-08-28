@@ -4,8 +4,8 @@ import { loadDefaultJapaneseParser } from 'budoux';
 import satori, { init } from 'satori/standalone';
 import { Resvg, initWasm } from '@resvg/resvg-wasm';
 
-import mediumFontData from '@fontsource/noto-sans-jp/files/noto-sans-jp-japanese-500-normal.woff';
-import regularFontData from '@fontsource/noto-sans-jp/files/noto-sans-jp-japanese-400-normal.woff';
+import fontData600 from '@fontsource/noto-sans-jp/files/noto-sans-jp-japanese-600-normal.woff';
+import fontData400 from '@fontsource/noto-sans-jp/files/noto-sans-jp-japanese-400-normal.woff';
 import avatar from '@assets/img/avatar.png?inline';
 
 let initialized = false;
@@ -28,43 +28,61 @@ export const generateOgpImage = async (title: string, publishedDate: string, upd
         display: 'flex',
         position: 'relative',
         fontFamily: "'Noto Sans JP', sans-serif",
-        background: '#fff',
+        backgroundImage: 'linear-gradient(130deg, #d8b4fe, #312e81)',
       }}
     >
       <div
         style={{
-          position: 'absolute',
-          fontSize: '5rem',
-          color: '#000',
-          left: '50px',
-          top: '60px',
-          width: '1100px',
           display: 'flex',
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          gap: '0',
-          fontWeight: 500,
+          position: 'absolute',
+          left: '50px',
+          top: '50px',
+          width: '1100px',
+          height: '350px',
+          background: '#fffb',
+          borderRadius: '20px',
         }}
       >
-        {words.map((word) => {
-          // satoriではinline-blockは使用できないため、明示的にblockを指定する
-          return (
-            <span key={word} style={{ display: 'block' }}>
-              {word}
-            </span>
-          );
-        })}
+        <div
+          style={{
+            position: 'absolute',
+            fontSize: '4rem',
+            color: '#000',
+            left: '25px',
+            top: '20px',
+            width: '1000px',
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            gap: '0',
+            fontWeight: 600,
+          }}
+        >
+          {words.map((word) => {
+            // satoriではinline-blockは使用できないため、明示的にblockを指定する
+            return (
+              <span key={word} style={{ display: 'block' }}>
+                {word}
+              </span>
+            );
+          })}
+        </div>
       </div>
 
       <div
         style={{
           display: 'flex',
           gap: '40px',
+          padding: '0 25px',
           position: 'absolute',
-          fontSize: '1.875rem',
           color: '#454545',
-          left: '50px',
-          bottom: '130px',
+          bottom: '110px',
+          right: '50px',
+          width: '900px',
+          height: '80px',
+          background: '#fffb',
+          borderRadius: '20px',
+          fontSize: '1.875rem',
           fontWeight: 400,
         }}
       >
@@ -91,19 +109,21 @@ export const generateOgpImage = async (title: string, publishedDate: string, upd
           </div>
         )}
       </div>
+
       <div
         style={{
           display: 'flex',
           position: 'absolute',
+          color: '#fff',
+          bottom: '20px',
+          right: '50px',
           fontSize: '3rem',
-          color: '#454545',
-          left: '50px',
-          bottom: '30px',
           fontWeight: 400,
         }}
       >
         しろみつ's Blog
       </div>
+
       <img
         alt="avatar"
         width="500"
@@ -111,10 +131,10 @@ export const generateOgpImage = async (title: string, publishedDate: string, upd
         src={avatar}
         style={{
           position: 'absolute',
-          right: '50px',
-          bottom: '30px',
-          width: '200px',
-          height: '200px',
+          left: '50px',
+          bottom: '40px',
+          width: '150px',
+          height: '150px',
           borderRadius: 128,
         }}
       />
@@ -125,13 +145,13 @@ export const generateOgpImage = async (title: string, publishedDate: string, upd
       fonts: [
         {
           name: 'Noto Sans JP',
-          data: Buffer.from(mediumFontData),
+          data: Buffer.from(fontData600),
           style: 'normal',
-          weight: 500,
+          weight: 600,
         },
         {
           name: 'Noto Sans JP',
-          data: Buffer.from(regularFontData),
+          data: Buffer.from(fontData400),
           style: 'normal',
           weight: 400,
         },

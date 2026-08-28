@@ -35,7 +35,13 @@ const titleTemplate =
     <meta property="og:title" content={titleTemplate} />
     <meta property="og:type" content={Astro.url.pathname === '/' ? 'website' : 'article'} />
     <meta property="og:url" content={Astro.url.href} />
-    <meta property="og:image" content={siteConfig.baseUrl + (ogImagePath || siteConfig.defaultOgImagePath)} />
+    <meta
+      property="og:image"
+      content={siteConfig.baseUrl +
+        (ogImagePath || siteConfig.defaultOgImagePath) +
+        '?v=' +
+        Math.floor(Date.now() / 1000 / 3600)}
+    />
     <meta property="og:description" content={description || siteConfig.defaultDescription} />
     {
       siteConfig.xAccount && (

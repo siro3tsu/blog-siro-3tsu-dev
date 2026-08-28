@@ -13,13 +13,11 @@ jobs:
           submodules: true
 
       - name: Setup pnpm
-        uses: pnpm/setup@v1
+        uses: pnpm/setup@v2
         with:
-          version: 11
+          version: 11.24.0
           runtime: node@26.7.0
           cache: true
-      - name: Install dependencies
-        run: pnpm install
 
       - name: Get Playwright Version For Browser Cache Key
         id: get-playwright-version
