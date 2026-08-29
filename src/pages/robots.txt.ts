@@ -36,18 +36,26 @@ User-Agent: *
 Content-Signal: ai-train=no, search=yes, ai-input=no
 Allow: /
 
+# Blocking Major AI Bots
 # Fetched from https://raw.githubusercontent.com/ai-robots-txt/ai.robots.txt/main/robots.txt
 # at ${new Date().toUTCString()}
 
 ${robotsTxt}
 # Fetched Content End
 
+# Blocking Grok and xAI Bots
 User-agent: Grok
 User-agent: GrokBot
 User-agent: xAI-Bot
 User-agent: xAI-Grok
 User-agent: Grok-DeepSearch
 User-agent: xAI-SearchBot
+Disallow: /
+
+# Blocking Wayback Machine
+User-agent: ia_archiver
+User-agent: archive.org_bot
+User-agent: ia_archiver-web.archive.org
 Disallow: /
 
 Sitemap: ${sitemapURL.href}
