@@ -17,9 +17,10 @@ import PostMeta from '@components/PostMeta.astro';
 import LastUpdatedWarn from '@components/blog/LastUpdatedWarn';
 import TocListItem from '@components/blog/TocListItem.astro';
 import AboutAuthor from '@components/blog/AboutAuthor.astro';
+import SharePost from '@components/blog/SharePost.astro';
+import RecentPosts from '@components/blog/RecentPosts.astro';
 import { getDescription } from '@core/posts';
 import { siteConfig } from '@site.config';
-import SharePost from '@components/blog/SharePost.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -86,6 +87,7 @@ headings.forEach((heading) => {
   <div class="flex flex-col gap-4 mt-8">
     <SharePost title={`${frontmatter.title} | ${siteConfig.siteName}`} />
     <AboutAuthor authorId={frontmatter.author} />
+    <RecentPosts />
   </div>
   <CopyTexts />
   <script is:inline>

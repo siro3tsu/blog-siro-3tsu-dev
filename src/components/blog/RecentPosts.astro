@@ -1,0 +1,20 @@
+---
+import { getSortedPosts } from '@core/posts';
+import PostCard from '@components/PostCard.astro';
+
+const RecentPosts = async () => {
+  const posts = await getSortedPosts();
+  return posts.slice(0, 5);
+};
+---
+
+<div>
+  <h2 class="text-lg font-bold mb-2">最近の投稿</h2>
+  <ul class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-2">
+    {
+      await RecentPosts().then((posts) =>
+        posts.map((post) => <PostCard slug={`/posts/${post.id}`} frontmatter={post.data} />)
+      )
+    }
+  </ul>
+</div>

@@ -6,7 +6,7 @@ const { authorId } = Astro.props;
 const author = authorConfig.find((item) => item.id === authorId)!;
 ---
 
-<div class="flex flex-row gap-2 items-center border rounded-md p-4">
+<div class="flex flex-row gap-2 items-center border border-gray-500 rounded-md p-4">
   <Image src={author.avatar} alt={`${author.name}のアバター`} width="128" height="128" class="rounded-full w-20 h-20" />
   <div class="flex flex-col gap-1">
     <p class="text-xl font-bold">{author.name}</p>
