@@ -37,6 +37,7 @@ export default defineConfig({
             properties: {
               className: [
                 'not-prose',
+                'max-[920px]:hidden',
                 'absolute',
                 '-left-5',
                 'top-1/2',

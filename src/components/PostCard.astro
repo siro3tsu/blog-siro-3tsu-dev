@@ -4,7 +4,7 @@ import PostMeta from '@components/PostMeta.astro';
 const { slug, frontmatter } = Astro.props;
 ---
 
-<li class="relative flex flex-col gap-2 p-4 border rounded-lg">
+<li class="relative flex flex-col gap-2 p-4 border border-gray-500 rounded-lg">
   <a href={slug} class="absolute inset-0" tabindex="-1" aria-hidden="true"></a>
   <h2 class="text-xl font-bold">
     <a href={slug} class="hover:underline relative z-10">{frontmatter.title}</a>

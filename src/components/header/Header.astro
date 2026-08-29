@@ -5,22 +5,29 @@ import SearchUI from '@components/header/SearchUI.astro';
 import { siteConfig, headerItems } from '@site.config';
 ---
 
-<header
-  class="sticky top-0 z-10 max-w-4xl w-full mx-auto p-4 flex flex-col sm:flex-row sm:items-center sm:gap-2 transition-[translate,background-color] duration-300 bg-default-bg dark:bg-default-bg-dark sm:rounded-b-lg sm:border sm:border-t-0 sm:border-gray-500"
->
-  <div class="flex flex-row justify-between items-center sm:contents">
-    <a href="/" class="block text-2xl font-bold sm:order-1 sm:mr-auto">{siteConfig.siteName}</a>
-    <div class="flex flex-row items-center gap-2 sm:order-3">
-      <SearchUI />
-      <ThemeChange />
-      <Hamburger />
-    </div>
-  </div>
+<header class="sticky top-0 z-10 max-w-4xl w-full mx-auto p-1 transition-transform duration-300">
+  <div class="absolute top-0 left-1 w-[calc(100%-0.5rem)] h-3 -z-10 backdrop-blur-sm"></div>
   <div
-    class="sm:order-2 max-sm:fixed top-16 left-0 max-sm:w-dvw max-sm:grid max-sm:grid-rows-[0fr] max-sm:in-open:grid-rows-[1fr] transition-[grid-template-rows] duration-300 sm:pb-1 max-sm:bg-default-bg max-sm:dark:bg-default-bg-dark"
+    class="p-4 w-full flex flex-col sm:flex-row sm:items-center sm:gap-2 transition-bg duration-initial bg-default-bg dark:bg-default-bg-dark rounded-lg border border-gray-500"
   >
-    <nav class="max-sm:overflow-hidden max-sm:px-4 max-sm:border-b max-sm:border-gray-500">
-      <ul class="max-sm:p-4 flex flex-row gap-4 max-sm:border-t max-sm:border-gray-500">
+    <div class="flex flex-row justify-between items-center sm:contents">
+      <a href="/" class="block text-2xl font-bold sm:order-1 sm:mr-auto">{siteConfig.siteName}</a>
+      <div class="flex flex-row items-center gap-2 sm:order-3">
+        <SearchUI />
+        <ThemeChange />
+        <Hamburger />
+      </div>
+    </div>
+    <div
+      class="sm:hidden absolute bottom-1 left-1 w-[calc(100%-0.5rem)] h-5 -z-10 backdrop-blur-sm in-open:translate-y-3 transition-transform duration-300"
+    >
+    </div>
+    <nav
+      class="sm:order-2 max-sm:fixed top-3 left-0 max-sm:-z-10 max-sm:px-1 max-sm:w-dvw max-sm:in-open:translate-y-[105%] transition-transform duration-300 sm:pb-1"
+    >
+      <ul
+        class="max-sm:p-4 flex flex-row gap-4 max-sm:border max-sm:rounded-lg max-sm:border-gray-500 max-sm:bg-default-bg max-sm:dark:bg-default-bg-dark transition-bg duration-initial"
+      >
         {
           headerItems.map((item) => (
             <li>
@@ -60,10 +67,10 @@ import { siteConfig, headerItems } from '@site.config';
               }
 
               if (currentScrollTop > lastScrollTop) {
-                header.classList.add('translate-y-[-100%]');
+                header.classList.add('translate-y-[-110%]');
                 header.removeAttribute('open');
               } else {
-                header.classList.remove('translate-y-[-100%]');
+                header.classList.remove('translate-y-[-110%]');
               }
 
               lastScrollTop = currentScrollTop;

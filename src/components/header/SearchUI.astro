@@ -45,15 +45,17 @@ import '@pagefind/component-ui/css';
   </style>
 </dialog>
 <script is:inline>
-  const searchButton = document.querySelector('#search-button');
-  const searchDialog = document.querySelector('#search-dialog');
-  searchButton.addEventListener('click', () => {
-    searchDialog.showModal();
-  });
-  searchDialog.addEventListener('click', (e) => {
-    if (e.target === searchDialog) {
-      searchDialog.close();
-    }
+  document.addEventListener('astro:page-load', () => {
+    const searchButton = document.querySelector('#search-button');
+    const searchDialog = document.querySelector('#search-dialog');
+    searchButton.addEventListener('click', () => {
+      searchDialog.showModal();
+    });
+    searchDialog.addEventListener('click', (e) => {
+      if (e.target === searchDialog) {
+        searchDialog.close();
+      }
+    });
   });
 </script>
 <script>

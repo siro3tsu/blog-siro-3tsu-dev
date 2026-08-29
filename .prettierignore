@@ -1,2 +1,9 @@
 **/*.jsonc
 worker-configuration.d.ts
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+node_modules/
+dist/
+.astro/
+.wrangler/

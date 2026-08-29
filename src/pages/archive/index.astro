@@ -19,7 +19,7 @@ const monthList: { year: number; months: number[] }[] = uniqueYears.map((year) =
   <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
     {
       uniqueYears.map((year) => (
-        <li class="flex flex-col gap-1 p-2 border rounded-md">
+        <li class="flex flex-col gap-1 p-2 border border-gray-500 rounded-md">
           <h2 class="text-lg font-semibold mb-2">
             <a href={`/archive/${year}/posts/`} class="hover:underline">
               {year}年

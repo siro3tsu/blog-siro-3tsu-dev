@@ -55,12 +55,9 @@ import { siteConfig } from '@site.config';
       .querySelectorAll(`button[value="${theme}"], .mode-${theme}, .mode-${theme}-${deviceType}`)
       .forEach((el) => el.setAttribute('aria-current', 'true'));
     const root = document.documentElement;
-    const header = document.querySelector('header');
     root.classList.add('[&_*]:not(header):!transition-none');
-    header.classList.remove('duration-300');
     window.requestAnimationFrame(() => {
       root.classList.remove('[&_*]:not(header):!transition-none');
-      header.classList.add('duration-300');
     });
     if (theme === 'system') theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     if (theme === 'light') {
