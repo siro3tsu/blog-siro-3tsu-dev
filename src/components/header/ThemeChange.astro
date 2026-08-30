@@ -55,9 +55,9 @@ import { siteConfig } from '@site.config';
       .querySelectorAll(`button[value="${theme}"], .mode-${theme}, .mode-${theme}-${deviceType}`)
       .forEach((el) => el.setAttribute('aria-current', 'true'));
     const root = document.documentElement;
-    root.classList.add('[&_*]:not(header):!transition-none');
+    root.classList.add('[&_*:not(header):not(header_*)]:transition-none!');
     window.requestAnimationFrame(() => {
-      root.classList.remove('[&_*]:not(header):!transition-none');
+      root.classList.remove('[&_*:not(header):not(header_*)]:transition-none!');
     });
     if (theme === 'system') theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     if (theme === 'light') {
