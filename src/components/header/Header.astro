@@ -5,8 +5,8 @@ import SearchUI from '@components/header/SearchUI.astro';
 import { siteConfig, headerItems } from '@site.config';
 ---
 
-<header class="sticky top-0 z-10 max-w-4xl w-full mx-auto p-1 transition-transform duration-300">
-  <div class="absolute top-0 left-1 w-[calc(100%-0.5rem)] h-3 -z-10 backdrop-blur-sm"></div>
+<header class="sticky top-0 z-40 max-w-4xl w-full mx-auto p-1 transition-transform duration-300">
+  <div class="absolute top-0 left-1 w-[calc(100%-0.5rem)] h-3 -z-20 backdrop-blur-sm"></div>
   <div
     class="p-4 w-full flex flex-col sm:flex-row sm:items-center sm:gap-2 transition-bg duration-initial bg-default-bg dark:bg-default-bg-dark rounded-lg border border-gray-500"
   >
@@ -19,7 +19,7 @@ import { siteConfig, headerItems } from '@site.config';
       </div>
     </div>
     <div
-      class="sm:hidden absolute bottom-1 left-1 w-[calc(100%-0.5rem)] h-5 -z-10 backdrop-blur-sm in-open:translate-y-3 transition-transform duration-300"
+      class="sm:hidden absolute bottom-1 left-1 w-[calc(100%-0.5rem)] h-5 -z-20 backdrop-blur-sm in-open:translate-y-3 transition-transform duration-300"
     >
     </div>
     <nav
