@@ -39,7 +39,7 @@ export const authorConfig: {
   id: string;
   name: string;
   avatar: ImageMetadata;
-  socialLinks: { name: string; userId: string; url?: string; iconClass: string }[];
+  socialLinks: { url?: string; userId?: string; iconClass: string }[];
 }[] = [
   {
     id: 'siro3tsu',
@@ -47,36 +47,31 @@ export const authorConfig: {
     avatar: siro3tsuAvatar,
     socialLinks: [
       {
-        name: 'GitHub',
-        userId: 'siro3tsu',
+        url: 'https://siro.3tsu.dev/',
+        iconClass: 'icon-[mdi--globe]',
+      },
+      {
         url: 'https://github.com/siro3tsu/',
         iconClass: 'icon-[simple-icons--github]',
       },
-      { name: 'X', userId: '@siro3tsu', url: 'https://x.com/siro3tsu/', iconClass: 'icon-[simple-icons--x]' },
+      { url: 'https://x.com/siro3tsu/', iconClass: 'icon-[simple-icons--x]' },
       {
-        name: 'Bluesky',
-        userId: '@siro.3tsu.dev',
         url: 'https://bsky.app/profile/siro.3tsu.dev/',
         iconClass: 'icon-[simple-icons--bluesky]',
       },
       {
-        name: 'Discord',
         userId: 'siro3tsu',
         iconClass: 'icon-[simple-icons--discord]',
       },
       {
-        name: 'Signal',
         userId: '@siro.32',
         iconClass: 'icon-[simple-icons--signal]',
       },
       {
-        name: 'Session',
         userId: '05fa5d055317428f1809a00c96236efd8be3ecbbab7d726a933e1e05e8e0f7ec64',
         iconClass: 'icon-[simple-icons--session]',
       },
       {
-        name: 'Email',
-        userId: 'Email Page',
         url: 'https://siro.3tsu.dev/email/',
         iconClass: 'icon-[mdi--email]',
       },

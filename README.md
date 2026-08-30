@@ -67,8 +67,8 @@ pnpm dev
 
 ## ライセンス
 
-`posts/`以下に配置されているブログ記事の本文及びそのアセット類のライセンスに関しては、こちらのリポジトリのライセンス範囲外となります。  
-`siro3tsu/posts`の[Copyright Notice](https://github.com/siro3tsu/posts/blob/main/COPYING)を確認してそちらのライセンスに従ってください。
+`posts/`ディレクトリ以下に配置されているブログ記事の本文及びそのアセット類のライセンスに関しては、こちらのリポジトリのライセンス範囲外となります。  
+`siro3tsu/posts`リポジトリの[Copyright Notice](https://github.com/siro3tsu/posts/blob/main/COPYING)を確認してそちらのライセンスに従ってください。
 
 当リポジトリのソースコードは、特に記載がない限り、[GNU Affero General Public License v3.0 only](./LICENSE)のもとで提供しています。
 
