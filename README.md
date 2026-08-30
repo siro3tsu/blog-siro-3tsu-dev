@@ -54,7 +54,7 @@ pnpm dev
 │   ├── pages/                # ルーティング対象ディレクトリ
 │   ├── styles/               # Tailwindcss スタイルシート
 │   ├── content.config.ts     # Astro.js のコンテンツコレクションの設定ファイル
-│   ├── site.config.ts        # サイトの設定定数定義
+│   └── site.config.ts        # サイトの設定定数定義
 ├── astro.config.mjs          # Astro.js の設定
 ├── package.json              # スクリプト及び依存関係
 └── wrangler.jsonc            # Cloudflare Workers の設定
