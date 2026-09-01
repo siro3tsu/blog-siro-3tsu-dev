@@ -37,8 +37,8 @@ const { title } = Astro.props;
       </button>
       <script is:inline>
         const webShareButton = document.querySelector('#web-share-button');
-        const title = webShareButton.getAttribute('data-title');
-        const url = webShareButton.getAttribute('data-url');
+        const title = webShareButton.dataset.title;
+        const url = webShareButton.dataset.url;
         if (navigator.share) {
           webShareButton.style.display = '';
           webShareButton.addEventListener('click', () => {

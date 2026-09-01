@@ -55,6 +55,15 @@ const titleTemplate =
     <meta name="msnbot" content="noarchive" />
     <meta name="pinterest" content="nopin" />
     <meta name="robots" content={`noimageai, noai${blockIndexing ? ', noindex' : ''}`} />
+    <script is:inline>
+      let theme = localStorage.getItem('theme') || 'system';
+      if (theme === 'system') theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      if (theme === 'light') {
+        document.documentElement.dataset.theme = 'light';
+      } else if (theme === 'dark') {
+        document.documentElement.dataset.theme = 'dark';
+      }
+    </script>
     <ClientRouter />
   </head>
   <body class="has-[dialog:open]:overflow-hidden">

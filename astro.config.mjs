@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 import { siteConfig } from '@site.config';
 import cloudflare from '@astrojs/cloudflare';
 import tailwindcss from '@tailwindcss/vite';
@@ -19,7 +19,13 @@ import rehypeExternalLinks from 'rehype-external-links';
 export default defineConfig({
   site: siteConfig.baseUrl,
   adapter: cloudflare({ imageService: 'compile' }),
-
+  fonts: [
+    {
+      provider: fontProviders.fontsource(),
+      name: 'Noto Sans JP',
+      cssVariable: '--font-noto-sans-jp',
+    },
+  ],
   vite: {
     plugins: [tailwindcss(), rawFonts()],
   },
@@ -33,15 +39,14 @@ export default defineConfig({
         [
           rehypeAutoLinkHeadings,
           {
-            behavior: 'prepend',
+            behavior: 'append',
             properties: {
               className: [
                 'not-prose',
-                'max-[920px]:hidden',
                 'absolute',
-                '-left-5',
                 'top-1/2',
                 '-translate-y-1/2',
+                'ml-1',
                 'text-gray-600',
                 'hover:text-gray-800',
                 'dark:text-gray-400',

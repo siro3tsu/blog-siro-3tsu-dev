@@ -4,11 +4,7 @@ import { siteConfig } from '@site.config';
 
 <div class="theme-change-component" transition:persist data-expressive-code-theme={siteConfig.expressiveCodeTheme}>
   <div class="relative hover:[&>div]:opacity-100">
-    <button
-      id="theme-button"
-      class="[anchor-name:--theme-dialog] p-1 align-middle cursor-pointer"
-      aria-label="テーマ変更"
-    >
+    <button id="theme-button" class="[anchor-name:--theme-dialog] p-1 cursor-pointer" aria-label="テーマ変更">
       <div class="text-2xl w-6 h-6">
         <span class="mode-light icon-[material-symbols--light-mode-outline] hidden aria-current:block"></span>
         <span class="mode-dark icon-[material-symbols--dark-mode-outline] hidden aria-current:block"></span>
@@ -49,7 +45,7 @@ import { siteConfig } from '@site.config';
 </div>
 <script is:inline>
   const themeChangeComponent = document.querySelector('.theme-change-component');
-  const expressiveCodeTheme = themeChangeComponent.getAttribute('data-expressive-code-theme').split(',');
+  const expressiveCodeTheme = themeChangeComponent.dataset.expressiveCodeTheme.split(',');
   const changeTheme = (theme) => {
     themeChangeComponent
       .querySelectorAll(`button[value="${theme}"], .mode-${theme}, .mode-${theme}-${deviceType}`)
@@ -61,11 +57,11 @@ import { siteConfig } from '@site.config';
     });
     if (theme === 'system') theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     if (theme === 'light') {
-      document.documentElement.setAttribute('data-theme', 'light');
-      document.documentElement.setAttribute('data-pf-theme', 'light');
+      document.documentElement.dataset.theme = 'light';
+      document.documentElement.dataset.pfTheme = 'light';
     } else if (theme === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      document.documentElement.setAttribute('data-pf-theme', 'dark');
+      document.documentElement.dataset.theme = 'dark';
+      document.documentElement.dataset.pfTheme = 'dark';
     }
     changePostComponentsTheme(theme);
   };
@@ -77,7 +73,7 @@ import { siteConfig } from '@site.config';
         el.parentNode.insertBefore(el, el.parentNode.querySelector('img').nextSibling);
       });
       document.querySelectorAll('.expressive-code').forEach((el) => {
-        el.setAttribute('data-theme', expressiveCodeTheme[1]);
+        el.dataset.theme = expressiveCodeTheme[1];
       });
     } else if (theme === 'dark') {
       // mermaidのdarkモード時のsourceをimgの前に持ってくる
@@ -85,11 +81,12 @@ import { siteConfig } from '@site.config';
         el.parentNode.insertBefore(el, el.parentNode.querySelector('img'));
       });
       document.querySelectorAll('.expressive-code').forEach((el) => {
-        el.setAttribute('data-theme', expressiveCodeTheme[0]);
+        el.dataset.theme = expressiveCodeTheme[0];
       });
     }
   };
   let deviceType;
+  // switch system icon based on device type (PC or SP)
   if (window.matchMedia('(max-width: 768px) and (hover: none) and (pointer: coarse)').matches) {
     themeChangeComponent.querySelector('.system-pc').classList.add('hidden');
     deviceType = 'sp';
@@ -97,11 +94,18 @@ import { siteConfig } from '@site.config';
     themeChangeComponent.querySelector('.system-sp').classList.add('hidden');
     deviceType = 'pc';
   }
-  changeTheme(localStorage.getItem('theme') || 'system');
+
+  // initialize theme change component based on localStorage or system preference
+  const initialTheme = localStorage.getItem('theme') || 'system';
+  themeChangeComponent
+    .querySelectorAll(`button[value="${initialTheme}"], .mode-${initialTheme}, .mode-${initialTheme}-${deviceType}`)
+    .forEach((el) => el.setAttribute('aria-current', 'true'));
+
+  // apply theme before view transition complete to avoid flickering
+  document.addEventListener('astro:after-swap', () => changeTheme(localStorage.getItem('theme') || 'system'));
   document.addEventListener('astro:page-load', () =>
     changePostComponentsTheme(localStorage.getItem('theme') || 'system')
   );
-  document.addEventListener('astro:after-swap', () => changeTheme(localStorage.getItem('theme') || 'system'));
   window.addEventListener('storage', (e) => {
     if (e.key === 'theme') {
       themeChangeComponent
