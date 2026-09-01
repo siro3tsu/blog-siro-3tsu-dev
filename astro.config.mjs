@@ -43,10 +43,8 @@ export default defineConfig({
             properties: {
               className: [
                 'not-prose',
-                'absolute',
-                'top-1/2',
-                '-translate-y-1/2',
                 'ml-1',
+                'align-middle',
                 'text-gray-600',
                 'hover:text-gray-800',
                 'dark:text-gray-400',
