@@ -14,7 +14,7 @@ import type { CollectionEntry } from 'astro:content';
 import Layout from '@layouts/Layout.astro';
 import CopyTexts from '@components/CopyTexts.astro';
 import PostMeta from '@components/PostMeta.astro';
-import LastUpdatedWarn from '@components/blog/LastUpdatedWarn';
+import LastUpdatedWarn from '@components/blog/LastUpdatedWarn.astro';
 import TocListItem from '@components/blog/TocListItem.astro';
 import AboutAuthor from '@components/blog/AboutAuthor.astro';
 import SharePost from '@components/blog/SharePost.astro';
@@ -62,7 +62,7 @@ headings.forEach((heading) => {
   ogImagePath={`/posts/${post.id}/og-image.png`}
 >
   <h1 class="text-3xl font-bold mb-4" data-pagefind-meta="title">{frontmatter.title}</h1>
-  <LastUpdatedWarn updatedDate={frontmatter.updatedDate ?? frontmatter.publishedDate} client:load />
+  <LastUpdatedWarn updatedDate={frontmatter.updatedDate ?? frontmatter.publishedDate} />
   <PostMeta frontmatter={frontmatter} mode="postPage" />
   {
     headingsList.length > 0 && (
