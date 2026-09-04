@@ -83,6 +83,21 @@ import { siteConfig } from '@site.config';
     }
     changePostComponentsTheme(theme);
   };
+  const setGiscusTheme = (theme: 'light' | 'dark') => {
+    const iframe = document.querySelector('iframe.giscus-frame') as HTMLIFrameElement;
+    if (!iframe) return;
+
+    iframe.contentWindow!.postMessage(
+      {
+        giscus: {
+          setConfig: {
+            theme: theme,
+          },
+        },
+      },
+      'https://giscus.app'
+    );
+  };
   const changePostComponentsTheme = (theme: 'light' | 'dark' | 'system') => {
     if (theme === 'system') theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     if (theme === 'light') {
@@ -93,6 +108,7 @@ import { siteConfig } from '@site.config';
       (document.querySelectorAll('.expressive-code') as NodeListOf<HTMLElement>).forEach((el) => {
         el.dataset.theme = expressiveCodeTheme[1];
       });
+      setGiscusTheme('light');
     } else if (theme === 'dark') {
       // mermaidのdarkモード時のsourceをimgの前に持ってくる
       document.querySelectorAll('[id^="mermaid-dark-"]').forEach((el) => {
@@ -101,6 +117,7 @@ import { siteConfig } from '@site.config';
       (document.querySelectorAll('.expressive-code') as NodeListOf<HTMLElement>).forEach((el) => {
         el.dataset.theme = expressiveCodeTheme[0];
       });
+      setGiscusTheme('dark');
     }
   };
   let deviceType: 'pc' | 'sp' = 'pc';

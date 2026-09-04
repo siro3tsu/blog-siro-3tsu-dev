@@ -87,6 +87,25 @@ headings.forEach((heading) => {
   <div class="flex flex-col gap-4 mt-8">
     <SharePost title={`${frontmatter.title} | ${siteConfig.siteName}`} />
     <AboutAuthor authorId={frontmatter.author} />
+    <div class="giscus"></div>
+    <script
+      is:inline
+      src="https://giscus.app/client.js"
+      data-repo="siro3tsu/posts"
+      data-repo-id="R_kgDOT9Ny3g"
+      data-category="Announcements"
+      data-category-id="DIC_kwDOT9Ny3s4DE4E7"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="dark"
+      data-lang="ja"
+      data-loading="lazy"
+      crossorigin="anonymous"
+      async
+    ></script>
     <RecentPosts />
   </div>
   <CopyTexts />
