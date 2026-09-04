@@ -87,6 +87,26 @@ import { siteConfig } from '@site.config';
     const iframe = document.querySelector('iframe.giscus-frame') as HTMLIFrameElement;
     if (!iframe) return;
 
+    try {
+      if (iframe.contentWindow?.location.href === 'about:blank') {
+        // iframeがまだロードされていない場合は、loadイベントを待つ
+        iframe.addEventListener('load', () => {
+          iframe.contentWindow!.postMessage(
+            {
+              giscus: {
+                setConfig: {
+                  theme: theme,
+                },
+              },
+            },
+            'https://giscus.app'
+          );
+        });
+        return;
+      }
+    } catch (e) {
+      // クロスオリジンの制約でiframe.contentWindow.location.hrefにアクセスできない場合は、読み込まれたと仮定してpostMessageを送信する
+    }
     iframe.contentWindow!.postMessage(
       {
         giscus: {

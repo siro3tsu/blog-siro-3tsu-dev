@@ -1,0 +1,32 @@
+---
+
+---
+
+<div class="giscus"></div>
+<script>
+  const setupGiscus = () => {
+    const giscusContainer = document.querySelector('.giscus') as HTMLElement;
+    if (!giscusContainer) return;
+    const script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    script.dataset.repo = 'siro3tsu/posts';
+    script.dataset.repoId = 'R_kgDOT9Ny3g';
+    script.dataset.category = 'Announcements';
+    script.dataset.categoryId = 'DIC_kwDOT9Ny3s4DE4E7';
+    script.dataset.mapping = 'pathname';
+    script.dataset.strict = '0';
+    script.dataset.reactionsEnabled = '1';
+    script.dataset.emitMetadata = '0';
+    script.dataset.inputPosition = 'bottom';
+    script.dataset.theme = document.documentElement.dataset.theme;
+    script.dataset.lang = 'ja';
+    script.dataset.loading = 'lazy';
+    script.crossOrigin = 'anonymous';
+    script.async = true;
+    giscusContainer.innerHTML = '';
+    giscusContainer.appendChild(script);
+  };
+  document.addEventListener('astro:page-load', () => {
+    setupGiscus();
+  });
+</script>
