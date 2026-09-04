@@ -66,12 +66,12 @@ headings.forEach((heading) => {
   <PostMeta frontmatter={frontmatter} mode="postPage" />
   {
     headingsList.length > 0 && (
-      <div class="border rounded mt-4 px-4 py-2 w-fit toc-container">
-        <h2 class="text-lg font-semibold flex flex-row items-center gap-1 cursor-pointer">
+      <div class="border rounded mt-4 px-4 py-2 w-full toc-container" data-open="">
+        <h2 class="text-lg font-semibold flex flex-row items-center gap-1 justify-between cursor-pointer">
           目次
-          <span class="icon-[mdi--chevron-down] in-open:icon-[mdi--chevron-up] text-2xl" />
+          <span class="icon-[mdi--chevron-down] in-data-open:icon-[mdi--chevron-up] text-2xl" />
         </h2>
-        <div class="overflow-hidden max-h-0 in-open:max-h-[9999px] transition-[max-height] duration-300">
+        <div class="overflow-hidden max-h-0 in-data-open:max-h-[9999px] transition-[max-height] duration-300">
           <ol class="pt-2 toc flex flex-col gap-2 list-decimal list-inside">
             {headingsList.map((heading) => (
               <TocListItem heading={heading} />
@@ -90,16 +90,17 @@ headings.forEach((heading) => {
     <RecentPosts />
   </div>
   <CopyTexts />
-  <script is:inline>
+  <script>
     document.addEventListener('astro:page-load', () => {
-      const tocContainer = document.querySelector('.toc-container');
+      const tocContainer = document.querySelector('.toc-container') as HTMLElement;
       if (tocContainer) {
         const tocHeader = tocContainer.querySelector('h2');
+        if (!tocHeader) return;
         tocHeader.addEventListener('click', () => {
-          if (tocContainer.hasAttribute('open')) {
-            tocContainer.removeAttribute('open');
+          if (tocContainer.dataset.open !== undefined) {
+            delete tocContainer.dataset.open;
           } else {
-            tocContainer.setAttribute('open', '');
+            tocContainer.dataset.open = '';
           }
         });
       }

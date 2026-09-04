@@ -45,8 +45,26 @@ import { siteConfig } from '@site.config';
 </div>
 <script is:inline>
   const themeChangeComponent = document.querySelector('.theme-change-component');
-  const expressiveCodeTheme = themeChangeComponent.dataset.expressiveCodeTheme.split(',');
-  const changeTheme = (theme) => {
+  let deviceType = 'pc';
+  // switch system icon based on device type (PC or SP)
+  if (window.matchMedia('(max-width: 768px) and (hover: none) and (pointer: coarse)').matches) {
+    themeChangeComponent.querySelector('.system-pc').classList.add('hidden');
+    deviceType = 'sp';
+  } else {
+    themeChangeComponent.querySelector('.system-sp').classList.add('hidden');
+    deviceType = 'pc';
+  }
+
+  // initialize theme change component based on localStorage or system preference
+  const initialTheme = localStorage.getItem('theme') || 'system';
+  themeChangeComponent
+    .querySelectorAll(`button[value="${initialTheme}"], .mode-${initialTheme}, .mode-${initialTheme}-${deviceType}`)
+    .forEach((el) => el.setAttribute('aria-current', 'true'));
+</script>
+<script>
+  const themeChangeComponent = document.querySelector('.theme-change-component') as HTMLElement;
+  const expressiveCodeTheme = themeChangeComponent.dataset.expressiveCodeTheme!.split(',');
+  const changeTheme = (theme: 'light' | 'dark' | 'system') => {
     themeChangeComponent
       .querySelectorAll(`button[value="${theme}"], .mode-${theme}, .mode-${theme}-${deviceType}`)
       .forEach((el) => el.setAttribute('aria-current', 'true'));
@@ -65,58 +83,52 @@ import { siteConfig } from '@site.config';
     }
     changePostComponentsTheme(theme);
   };
-  const changePostComponentsTheme = (theme) => {
+  const changePostComponentsTheme = (theme: 'light' | 'dark' | 'system') => {
     if (theme === 'system') theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     if (theme === 'light') {
       // mermaidのdarkモード時のsourceをimgの後ろに持ってくる
       document.querySelectorAll('[id^="mermaid-dark-"]').forEach((el) => {
-        el.parentNode.insertBefore(el, el.parentNode.querySelector('img').nextSibling);
+        el.parentNode!.insertBefore(el, el.parentNode!.querySelector('img')!.nextSibling);
       });
-      document.querySelectorAll('.expressive-code').forEach((el) => {
+      (document.querySelectorAll('.expressive-code') as NodeListOf<HTMLElement>).forEach((el) => {
         el.dataset.theme = expressiveCodeTheme[1];
       });
     } else if (theme === 'dark') {
       // mermaidのdarkモード時のsourceをimgの前に持ってくる
       document.querySelectorAll('[id^="mermaid-dark-"]').forEach((el) => {
-        el.parentNode.insertBefore(el, el.parentNode.querySelector('img'));
+        el.parentNode!.insertBefore(el, el.parentNode!.querySelector('img')!);
       });
-      document.querySelectorAll('.expressive-code').forEach((el) => {
+      (document.querySelectorAll('.expressive-code') as NodeListOf<HTMLElement>).forEach((el) => {
         el.dataset.theme = expressiveCodeTheme[0];
       });
     }
   };
-  let deviceType;
+  let deviceType: 'pc' | 'sp' = 'pc';
   // switch system icon based on device type (PC or SP)
   if (window.matchMedia('(max-width: 768px) and (hover: none) and (pointer: coarse)').matches) {
-    themeChangeComponent.querySelector('.system-pc').classList.add('hidden');
     deviceType = 'sp';
   } else {
-    themeChangeComponent.querySelector('.system-sp').classList.add('hidden');
     deviceType = 'pc';
   }
 
-  // initialize theme change component based on localStorage or system preference
-  const initialTheme = localStorage.getItem('theme') || 'system';
-  themeChangeComponent
-    .querySelectorAll(`button[value="${initialTheme}"], .mode-${initialTheme}, .mode-${initialTheme}-${deviceType}`)
-    .forEach((el) => el.setAttribute('aria-current', 'true'));
-
   // apply theme before view transition complete to avoid flickering
-  document.addEventListener('astro:after-swap', () => changeTheme(localStorage.getItem('theme') || 'system'));
+  document.addEventListener('astro:after-swap', () =>
+    changeTheme((localStorage.getItem('theme') as 'light' | 'dark' | 'system') || 'system')
+  );
   document.addEventListener('astro:page-load', () =>
-    changePostComponentsTheme(localStorage.getItem('theme') || 'system')
+    changePostComponentsTheme((localStorage.getItem('theme') as 'light' | 'dark' | 'system') || 'system')
   );
   window.addEventListener('storage', (e) => {
     if (e.key === 'theme') {
       themeChangeComponent
         .querySelectorAll('button[aria-current], [class^="mode-"][aria-current]')
         .forEach((el) => el.removeAttribute('aria-current'));
-      changeTheme(e.newValue || 'system');
-      changePostComponentsTheme(e.newValue || 'system');
+      changeTheme((e.newValue as 'light' | 'dark' | 'system') || 'system');
+      changePostComponentsTheme((e.newValue as 'light' | 'dark' | 'system') || 'system');
     }
   });
-  const themeDialog = document.querySelector('#theme-dialog');
-  const themeButton = document.querySelector('#theme-button');
+  const themeDialog = document.querySelector('#theme-dialog') as HTMLDialogElement;
+  const themeButton = document.querySelector('#theme-button') as HTMLButtonElement;
   const themeButtons = themeDialog.querySelectorAll('button');
   themeButton.addEventListener('click', () => {
     themeDialog.showModal();
@@ -128,7 +140,7 @@ import { siteConfig } from '@site.config';
   });
   themeButtons.forEach((button) => {
     button.addEventListener('click', () => {
-      const currentTheme = button.value;
+      const currentTheme = button.value as 'light' | 'dark' | 'system';
       themeChangeComponent
         .querySelectorAll('button[aria-current], [class^="mode-"][aria-current]')
         .forEach((el) => el.removeAttribute('aria-current'));

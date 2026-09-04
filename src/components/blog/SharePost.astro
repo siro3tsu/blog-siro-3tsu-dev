@@ -35,8 +35,8 @@ const { title } = Astro.props;
         data-title={title}>
         <span class="icon-[mdi--share-variant]"></span>その他で共有
       </button>
-      <script is:inline>
-        const webShareButton = document.querySelector('#web-share-button');
+      <script>
+        const webShareButton = document.querySelector('#web-share-button') as HTMLButtonElement;
         const title = webShareButton.dataset.title;
         const url = webShareButton.dataset.url;
         if (navigator.share) {

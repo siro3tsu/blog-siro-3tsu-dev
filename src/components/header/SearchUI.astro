@@ -44,10 +44,10 @@ import '@pagefind/component-ui/css';
     }
   </style>
 </dialog>
-<script is:inline>
+<script>
   document.addEventListener('astro:page-load', () => {
-    const searchButton = document.querySelector('#search-button');
-    const searchDialog = document.querySelector('#search-dialog');
+    const searchButton = document.querySelector('#search-button') as HTMLButtonElement;
+    const searchDialog = document.querySelector('#search-dialog') as HTMLDialogElement;
     searchButton.addEventListener('click', () => {
       searchDialog.showModal();
     });

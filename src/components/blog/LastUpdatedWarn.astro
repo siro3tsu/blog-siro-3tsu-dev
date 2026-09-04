@@ -2,25 +2,27 @@
 const { updatedDate } = Astro.props;
 ---
 
-<last-updated-warn data-updated-date={updatedDate.toISOString()} style="display: none;">
+<last-updated-warn data-updated-date={updatedDate.toISOString()} style="display: block;">
   <div
-    class="bg-yellow-100 dark:bg-orange-900 border rounded border-yellow-500 text-orange-700 dark:text-yellow-100 p-4 mb-4 font-bold flex flex-row items-center gap-1"
+    class="bg-yellow-100 dark:bg-orange-900 border rounded border-yellow-500 text-orange-700 dark:text-yellow-100 p-4 mb-4 font-bold"
     role="alert"
   >
-    <span class="icon-[mdi--warning-outline] text-xl"></span>最終更新日から<span id="diff-in-years"></span>
-    年以上経過しています。内容が古くなっている可能性があります。
+    <span class="icon-[mdi--warning-outline] text-xl align-middle"></span><span
+      >最終更新日から<span id="diff-in-years"></span>
+      年以上経過しています。内容が古くなっている可能性があります。</span
+    >
   </div>
 </last-updated-warn>
-<script>
+<script is:inline>
   class LastUpdatedWarn extends HTMLElement {
     connectedCallback() {
-      const updatedDate = new Date(this.dataset.updatedDate as string);
+      const updatedDate = new Date(this.dataset.updatedDate);
       const now = new Date();
       const diffInYears = Math.floor((now.getTime() - updatedDate.getTime()) / (1000 * 60 * 60 * 24 * 365));
-      if (diffInYears >= 1) {
-        this.style.display = 'block';
+      if (diffInYears < 1) {
+        this.style.display = 'none';
       }
-      document.querySelector('#diff-in-years')!.textContent = diffInYears.toString();
+      this.querySelector('#diff-in-years').textContent = diffInYears.toString();
     }
   }
   customElements.define('last-updated-warn', LastUpdatedWarn);

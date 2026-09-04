@@ -19,11 +19,11 @@ import { siteConfig, headerItems } from '@site.config';
       </div>
     </div>
     <div
-      class="sm:hidden absolute bottom-1 left-1 w-[calc(100%-0.5rem)] h-5 -z-20 backdrop-blur-sm in-open:translate-y-3 transition-transform duration-300"
+      class="sm:hidden absolute bottom-1 left-1 w-[calc(100%-0.5rem)] h-5 -z-20 backdrop-blur-sm in-data-open:translate-y-3 transition-transform duration-300"
     >
     </div>
     <nav
-      class="sm:order-2 max-sm:fixed top-3 left-0 max-sm:-z-10 max-sm:px-1 max-sm:w-dvw max-sm:in-open:translate-y-[105%] transition-transform duration-300 sm:pb-1"
+      class="sm:order-2 max-sm:fixed top-3 left-0 max-sm:-z-10 max-sm:px-1 max-sm:w-dvw max-sm:in-data-open:translate-y-[105%] transition-transform duration-300 sm:pb-1"
     >
       <ul
         class="max-sm:p-4 flex flex-row gap-4 max-sm:border max-sm:rounded-lg max-sm:border-gray-500 max-sm:bg-default-bg max-sm:dark:bg-default-bg-dark transition-bg duration-initial"
@@ -38,15 +38,15 @@ import { siteConfig, headerItems } from '@site.config';
       </ul>
     </nav>
   </div>
-  <script is:inline>
+  <script>
     document.addEventListener('astro:page-load', () => {
-      const hamburger = document.querySelector('.hamburger');
-      const header = document.querySelector('header');
+      const hamburger = document.querySelector('.hamburger') as HTMLButtonElement;
+      const header = document.querySelector('header') as HTMLElement;
       hamburger.addEventListener('click', () => {
-        if (header.hasAttribute('open')) {
-          header.removeAttribute('open');
+        if (header.dataset.open !== undefined) {
+          delete header.dataset.open;
         } else {
-          header.setAttribute('open', '');
+          header.dataset.open = '';
         }
       });
       let lastScrollTop = 0;
@@ -68,7 +68,7 @@ import { siteConfig, headerItems } from '@site.config';
 
               if (currentScrollTop > lastScrollTop) {
                 header.classList.add('translate-y-[-110%]');
-                header.removeAttribute('open');
+                delete header.dataset.open;
               } else {
                 header.classList.remove('translate-y-[-110%]');
               }

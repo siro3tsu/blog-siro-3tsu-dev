@@ -2,9 +2,9 @@
 
 ---
 
-<script is:inline>
+<script>
   document.addEventListener('astro:page-load', () => {
-    document.querySelectorAll('[data-copy]').forEach((el) => {
+    (document.querySelectorAll('[data-copy]') as NodeListOf<HTMLElement>).forEach((el) => {
       el.addEventListener('click', (e) => {
         const textToCopy = el.dataset.copy;
 
@@ -14,27 +14,25 @@
             copyNotification.className =
               'copy-notification absolute opacity-0 transition-opacity bg-green-500/20 backdrop-blur-sm text-gray-900 dark:text-gray-100 border border-green-700 dark:border-green-300 rounded-md shadow-lg p-1 z-10 hidden flex-row items-center gap-2 pointer-events-none';
             copyNotification.innerHTML = `<span class="icon-[mdi--check-circle-outline]"></span>${el.dataset.copyCustomMsg || 'コピーしました'}`;
-            const duplicateEl = copyNotification.cloneNode(true);
-            document.body.appendChild(duplicateEl);
-            duplicateEl.classList.remove('hidden');
-            duplicateEl.classList.add('flex');
-            if (e.pageX + duplicateEl.offsetWidth > window.scrollX + window.innerWidth) {
-              duplicateEl.style.left = `${window.scrollX + window.innerWidth - duplicateEl.offsetWidth - 10}px`;
+            document.body.appendChild(copyNotification);
+            copyNotification.classList.remove('hidden');
+            copyNotification.classList.add('flex');
+            if (e.pageX + copyNotification.offsetWidth > window.scrollX + window.innerWidth) {
+              copyNotification.style.left = `${window.scrollX + window.innerWidth - copyNotification.offsetWidth - 10}px`;
             } else {
-              duplicateEl.style.left = `${e.pageX}px`;
+              copyNotification.style.left = `${e.pageX}px`;
             }
-            console.log(e.pageY, duplicateEl.offsetHeight, window.innerHeight);
-            if (e.pageY + duplicateEl.offsetHeight > window.scrollY + window.innerHeight) {
-              duplicateEl.style.top = `${window.scrollY + window.innerHeight - duplicateEl.offsetHeight - 10}px`;
+            if (e.pageY + copyNotification.offsetHeight > window.scrollY + window.innerHeight) {
+              copyNotification.style.top = `${window.scrollY + window.innerHeight - copyNotification.offsetHeight - 10}px`;
             } else {
-              duplicateEl.style.top = `${e.pageY}px`;
+              copyNotification.style.top = `${e.pageY}px`;
             }
-            duplicateEl.classList.remove('opacity-0');
+            copyNotification.classList.remove('opacity-0');
             el.dataset.copied = 'true';
             setTimeout(() => {
-              duplicateEl.classList.add('opacity-0');
+              copyNotification.classList.add('opacity-0');
               setTimeout(() => {
-                duplicateEl.remove();
+                copyNotification.remove();
                 delete el.dataset.copied;
               }, 150);
             }, 2000);
