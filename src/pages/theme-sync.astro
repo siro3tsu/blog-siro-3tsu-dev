@@ -1,0 +1,10 @@
+---
+
+---
+
+<script is:inline>
+  window.addEventListener('message', (e) => {
+    if (e.origin !== 'https://siro.3tsu.dev') return;
+    localStorage.setItem('theme', e.data.theme);
+  });
+</script>

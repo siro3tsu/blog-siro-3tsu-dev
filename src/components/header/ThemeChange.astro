@@ -42,6 +42,7 @@ import { siteConfig } from '@site.config';
       </li>
     </ul>
   </dialog>
+  <iframe src="https://siro.3tsu.dev/theme-sync/"></iframe>
 </div>
 <script is:inline>
   const themeChangeComponent = document.querySelector('.theme-change-component');
@@ -140,6 +141,16 @@ import { siteConfig } from '@site.config';
       setGiscusTheme('dark');
     }
   };
+  const sendThemeToIframe = (theme: 'light' | 'dark' | 'system') => {
+    const iframe = document.querySelector('iframe[src="https://siro.3tsu.dev/theme-sync/"]') as HTMLIFrameElement;
+    if (!iframe) return;
+    iframe.contentWindow!.postMessage(
+      {
+        theme: theme,
+      },
+      'https://siro.3tsu.dev'
+    );
+  };
   let deviceType: 'pc' | 'sp' = 'pc';
   // switch system icon based on device type (PC or SP)
   if (window.matchMedia('(max-width: 768px) and (hover: none) and (pointer: coarse)').matches) {
@@ -182,6 +193,7 @@ import { siteConfig } from '@site.config';
         .querySelectorAll('button[aria-current], [class^="mode-"][aria-current]')
         .forEach((el) => el.removeAttribute('aria-current'));
       changeTheme(currentTheme);
+      sendThemeToIframe(currentTheme);
       localStorage.setItem('theme', currentTheme);
       themeDialog.close();
     });
