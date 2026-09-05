@@ -87,8 +87,8 @@ headings.forEach((heading) => {
   </article>
   <div class="flex flex-col gap-4 mt-8">
     <SharePost title={`${frontmatter.title} | ${siteConfig.siteName}`} />
-    <AboutAuthor authorId={frontmatter.author} />
     <Giscus />
+    <AboutAuthor authorId={frontmatter.author} />
     <RecentPosts />
   </div>
   <CopyTexts />

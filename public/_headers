@@ -1,5 +1,5 @@
 /*
-  Content-Security-Policy: default-src 'none'; img-src 'self' data:; script-src 'self' 'wasm-unsafe-eval'; script-src-elem 'self' 'unsafe-inline' https://giscus.app/; style-src 'self' 'unsafe-inline' https://giscus.app/; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; connect-src 'self'; worker-src 'self' blob:; frame-src https://giscus.app/; frame-ancestors 'none'
+  Content-Security-Policy: default-src 'none'; img-src 'self' data:; script-src 'self' 'wasm-unsafe-eval'; script-src-elem 'self' 'unsafe-inline' data: https://giscus.app/; style-src 'self' 'unsafe-inline' https://giscus.app/; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; connect-src 'self'; worker-src 'self' blob:; frame-src https://giscus.app/ https://siro.3tsu.dev/; frame-ancestors https://siro.3tsu.dev/
   Cross-Origin-Resource-Policy: same-origin
   Cross-Origin-Opener-Policy: same-origin
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
