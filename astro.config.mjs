@@ -14,6 +14,8 @@ import rehypeSlug from 'rehype-slug';
 import rehypeAutoLinkHeadings from 'rehype-autolink-headings';
 import expressiveCode from 'astro-expressive-code';
 import rehypeExternalLinks from 'rehype-external-links';
+import remarkLinkCard from 'remark-link-card-plus';
+import rehypeClassNames from 'rehype-class-names';
 
 export default defineConfig({
   site: siteConfig.baseUrl,
@@ -33,6 +35,16 @@ export default defineConfig({
       excludeLangs: ['mermaid'],
     },
     processor: unified({
+      remarkPlugins: [
+        [
+          remarkLinkCard,
+          {
+            cache: true,
+            shortenUrl: true,
+            thumbnailPosition: 'right',
+          },
+        ],
+      ],
       rehypePlugins: [
         rehypeSlug,
         [
@@ -80,6 +92,12 @@ export default defineConfig({
           {
             target: '_blank',
             rel: ['noopener', 'noreferrer'],
+          },
+        ],
+        [
+          rehypeClassNames,
+          {
+            '.remark-link-card-plus__container': 'not-prose',
           },
         ],
       ],
