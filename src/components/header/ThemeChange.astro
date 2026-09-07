@@ -47,7 +47,6 @@ import { siteConfig } from '@site.config';
 <script is:inline>
   const themeChangeComponent = document.querySelector('.theme-change-component');
   let deviceType = 'pc';
-  // switch system icon based on device type (PC or SP)
   if (window.matchMedia('(max-width: 768px) and (hover: none) and (pointer: coarse)').matches) {
     themeChangeComponent.querySelector('.system-pc').classList.add('hidden');
     deviceType = 'sp';
@@ -56,7 +55,6 @@ import { siteConfig } from '@site.config';
     deviceType = 'pc';
   }
 
-  // initialize theme change component based on localStorage or system preference
   const initialTheme = localStorage.getItem('theme') || 'system';
   themeChangeComponent
     .querySelectorAll(`button[value="${initialTheme}"], .mode-${initialTheme}, .mode-${initialTheme}-${deviceType}`)
@@ -122,7 +120,6 @@ import { siteConfig } from '@site.config';
   const changePostComponentsTheme = (theme: 'light' | 'dark' | 'system') => {
     if (theme === 'system') theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     if (theme === 'light') {
-      // mermaidのdarkモード時のsourceをimgの後ろに持ってくる
       document.querySelectorAll('[id^="mermaid-dark-"]').forEach((el) => {
         el.parentNode!.insertBefore(el, el.parentNode!.querySelector('img')!.nextSibling);
       });
@@ -131,7 +128,6 @@ import { siteConfig } from '@site.config';
       });
       setGiscusTheme('light');
     } else if (theme === 'dark') {
-      // mermaidのdarkモード時のsourceをimgの前に持ってくる
       document.querySelectorAll('[id^="mermaid-dark-"]').forEach((el) => {
         el.parentNode!.insertBefore(el, el.parentNode!.querySelector('img')!);
       });
@@ -152,14 +148,12 @@ import { siteConfig } from '@site.config';
     );
   };
   let deviceType: 'pc' | 'sp' = 'pc';
-  // switch system icon based on device type (PC or SP)
   if (window.matchMedia('(max-width: 768px) and (hover: none) and (pointer: coarse)').matches) {
     deviceType = 'sp';
   } else {
     deviceType = 'pc';
   }
 
-  // apply theme before view transition complete to avoid flickering
   document.addEventListener('astro:after-swap', () =>
     changeTheme((localStorage.getItem('theme') as 'light' | 'dark' | 'system') || 'system')
   );

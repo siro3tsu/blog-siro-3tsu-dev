@@ -2,9 +2,7 @@
 import { getSortedPosts } from '@core/posts';
 import Layout from '@layouts/Layout.astro';
 
-// すべての投稿を日付の新しいほうから古いほうへ並べる
 const sortedPosts = await getSortedPosts();
-// すべての投稿の中からすべての年（2023,2024など）を取得する。
 const uniqueYears = [...new Set(sortedPosts.flatMap((post) => post.data.publishedDate.getFullYear()))];
 
 const monthList: { year: number; months: number[] }[] = uniqueYears.map((year) => {

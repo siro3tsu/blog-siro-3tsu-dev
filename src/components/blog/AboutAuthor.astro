@@ -11,25 +11,26 @@ const author = authorConfig.find((item) => item.id === authorId)!;
   <div class="flex flex-col gap-1">
     <p class="text-xl font-bold">{author.name}</p>
     <code>@{author.id}</code>
-    <ul class="flex flex-row flex-wrap gap-2">
+    <ul class="flex flex-row flex-wrap gap-2" aria-label={`${author.name}のリンクまとめ`} role="list">
       {
         author.socialLinks.map((link) => (
           <li>
             {link.url ? (
               /https?:\/\//.test(link.url) ? (
-                <a href={link.url} target="_blank" rel="noopener noreferrer">
+                <a href={link.url} target="_blank" rel="noopener noreferrer" aria-label={link.name}>
                   <span class={`${link.iconClass} block w-6 h-6`} />
                 </a>
               ) : (
-                <a href={link.url}>
+                <a href={link.url} aria-label={link.name}>
                   <span class={`${link.iconClass} block w-6 h-6`} />
                 </a>
               )
             ) : (
-              <span
+              <button
                 class={`block ${link.iconClass} cursor-pointer w-6 h-6`}
                 data-copy={link.userId}
                 data-copy-custom-msg="IDをコピーしました"
+                aria-label={link.name}
               />
             )}
           </li>

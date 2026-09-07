@@ -59,7 +59,6 @@ export const generateOgpImage = async (title: string, publishedDate: string, upd
           }}
         >
           {words.map((word) => {
-            // satoriではinline-blockは使用できないため、明示的にblockを指定する
             return (
               <span key={word} style={{ display: 'block' }}>
                 {word}

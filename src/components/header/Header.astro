@@ -50,14 +50,12 @@ import { siteConfig, headerItems } from '@site.config';
         }
       });
       let lastScrollTop = 0;
-      let ticking = false; // 描画待ちフラグ
+      let ticking = false;
 
       window.addEventListener(
         'scroll',
         () => {
-          // すでに描画待ち（処理が予約されている）状態なら、何もしない
           if (!ticking) {
-            // 次の描画タイミングで実行するようブラウザに予約
             window.requestAnimationFrame(() => {
               const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
@@ -74,10 +72,10 @@ import { siteConfig, headerItems } from '@site.config';
               }
 
               lastScrollTop = currentScrollTop;
-              ticking = false; // 処理が終わったのでフラグを戻す
+              ticking = false;
             });
 
-            ticking = true; // 予約済みにする
+            ticking = true;
           }
         },
         { passive: true }

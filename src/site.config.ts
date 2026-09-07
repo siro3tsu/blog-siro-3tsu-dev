@@ -39,7 +39,7 @@ export const authorConfig: {
   id: string;
   name: string;
   avatar: ImageMetadata;
-  socialLinks: { url?: string; userId?: string; iconClass: string }[];
+  socialLinks: { name: string; url?: string; userId?: string; iconClass: string }[];
 }[] = [
   {
     id: 'siro3tsu',
@@ -47,31 +47,42 @@ export const authorConfig: {
     avatar: siro3tsuAvatar,
     socialLinks: [
       {
+        name: "しろみつ's Site",
         url: 'https://siro.3tsu.dev/',
         iconClass: 'icon-[mdi--globe]',
       },
       {
+        name: 'GitHub',
         url: 'https://github.com/siro3tsu/',
         iconClass: 'icon-[simple-icons--github]',
       },
-      { url: 'https://x.com/siro3tsu/', iconClass: 'icon-[simple-icons--x]' },
       {
+        name: 'X',
+        url: 'https://x.com/siro3tsu/',
+        iconClass: 'icon-[simple-icons--x]',
+      },
+      {
+        name: 'Bluesky',
         url: 'https://bsky.app/profile/siro.3tsu.dev/',
         iconClass: 'icon-[simple-icons--bluesky]',
       },
       {
+        name: 'Discord',
         userId: 'siro3tsu',
         iconClass: 'icon-[simple-icons--discord]',
       },
       {
+        name: 'Signal',
         userId: '@siro.32',
         iconClass: 'icon-[simple-icons--signal]',
       },
       {
+        name: 'Session',
         userId: '05fa5d055317428f1809a00c96236efd8be3ecbbab7d726a933e1e05e8e0f7ec64',
         iconClass: 'icon-[simple-icons--session]',
       },
       {
+        name: 'Email',
         url: 'https://siro.3tsu.dev/email/',
         iconClass: 'icon-[mdi--email]',
       },
@@ -111,7 +122,7 @@ export const sharePostConfig: {
       name: 'Bluesky',
       urlTemplate: 'https://bsky.app/intent/compose?text={title-url}',
       iconClass: 'icon-[simple-icons--bluesky]',
-      bgClass: 'bg-[#037efa]',
+      bgClass: 'bg-[#004bcc]',
       textClass: 'text-white',
     },
   ],

@@ -3,7 +3,6 @@ import { getSortedPosts, convertToSlug } from '@core/posts';
 import Layout from '@layouts/Layout.astro';
 
 const sortedPosts = await getSortedPosts();
-// すべての投稿の中からすべてのタグを取得する。
 const uniqueTags = [...new Set(sortedPosts.flatMap((post) => post.data.tags))];
 ---
 

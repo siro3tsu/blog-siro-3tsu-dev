@@ -15,7 +15,6 @@ import rehypeAutoLinkHeadings from 'rehype-autolink-headings';
 import expressiveCode from 'astro-expressive-code';
 import rehypeExternalLinks from 'rehype-external-links';
 
-// https://astro.build/config
 export default defineConfig({
   site: siteConfig.baseUrl,
   adapter: cloudflare({ imageService: 'compile' }),
@@ -59,7 +58,7 @@ export default defineConfig({
             content: {
               type: 'element',
               tagName: 'span',
-              properties: { className: ['icon-[mdi--link-variant]'] },
+              properties: { className: ['icon-[mdi--link-variant]'], ariaLabel: 'アンカーリンク' },
               children: [],
             },
           },
@@ -69,10 +68,10 @@ export default defineConfig({
           {
             strategy: 'img-svg',
             mermaidConfig: {
-              theme: 'base', // ライト用のmermaidテーマ
+              theme: 'base',
             },
             dark: {
-              theme: 'dark', // ダーク用のmermaidテーマ
+              theme: 'dark',
             },
           },
         ],
